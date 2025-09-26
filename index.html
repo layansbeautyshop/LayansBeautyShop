@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر ليان للجمال - Layan's Beauty Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>متجر ليان</h2>
+                <span>Layan's Beauty Shop</span>
+            </div>
+           <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">الرئيسية</a></li>
+    <li><a href="products.html">المنتجات</a></li>
+    <li><a href="delivery.html">التوصيل</a></li>
+    <li><a href="about.html">من نحن</a></li>
+    <li><a href="contact.html">تواصلي معنا</a></li>
+</ul>
+            <div class="nav-icons">
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div>
+                <h1>مرحباً بكِ في متجر ليان</h1>
+                <p>اكتشفي أجمل منتجات التجميل والعناية بالبشرة</p>
+                <a href="products.html" class="cta-button">تسوقي الآن</a>
+            </div>
+            <div class="hero-image">
+                <div class="beauty-illustration">
+                    <div class="makeup-items">
+                    <img src="images/Untitled_design-removebg-preview.png" >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="container">
+            <h2 class="section-title">المنتجات المميزة</h2>
+            <div class="products-grid" id="featuredProducts">
+                <!-- Products will be loaded by JavaScript -->
+            </div>
+            <div class="view-all">
+                <a href="products.html" class="view-all-btn">عرض جميع المنتجات</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>لماذا تختارين متجر ليان؟</h2>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <h3>منتجات عالية الجودة</h3>
+                            <p>نقدم لكِ أفضل منتجات التجميل من العلامات التجارية الموثوقة</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shipping-fast"></i>
+                            <h3>توصيل سريع</h3>
+                            <p>نوصل طلباتكِ بسرعة وأمان إلى باب منزلكِ</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-star"></i>
+                            <h3>خدمة عملاء مميزة</h3>
+                            <p>فريقنا جاهز لمساعدتكِ في أي وقت</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>سلة التسوق</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>المجموع: <span id="cartTotal">0</span> شيقل</strong>
+            </div>
+            <button class="checkout-btn" onclick="showContactMessage()">إتمام الطلب</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>متجر ليان للجمال</h3>
+                    <p>وجهتكِ الأولى لمنتجات التجميل والعناية بالبشرة</p>
+                </div>
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="products.html">المنتجات</a></li>
+                        <li><a href="about.html">من نحن</a></li>
+                        <li><a href="contact.html">تواصل معنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>تابعينا</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/layansbeautyshop/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@layansbeautyshop"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 متجر ليان للجمال. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

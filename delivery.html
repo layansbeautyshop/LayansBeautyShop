@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التوصيل - متجر ليان للجمال</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="delivery-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-content">
+                <div class="logo">
+                    <h2>
+                        <span class="logo-icon">💄</span>
+                        <span class="logo-text">متجر ليان</span>
+                        <span class="logo-subtitle">للجمال</span>
+                    </h2>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="products.html">المنتجات</a></li>
+                    <li><a href="delivery.html" class="active">التوصيل</a></li>
+                    <li><a href="about.html">من نحن</a></li>
+                    <li><a href="contact.html">تواصلي معنا</a></li>
+                </ul>
+                <div class="nav-icons">
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                    <div class="hamburger" onclick="toggleMenu()">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Delivery Hero -->
+    <section class="delivery-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>🚚 خدمة التوصيل</h1>
+                <p>نوصل إليكِ منتجات الجمال في أسرع وقت</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Options -->
+    <section class="delivery-section">
+        <div class="container">
+            <div class="delivery-grid">
+                <!-- Western Areas Delivery -->
+                <div class="delivery-card">
+                    <div class="delivery-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>التوصيل لمدن الضفة الغربية</h3>
+                    <p class="delivery-time">2-3 أيام عمل</p>
+                    <p class="delivery-price">20 شيقل</p>
+                    <ul class="delivery-features">
+                        <li><i class="fas fa-check"></i> توصيل آمن ومضمون</li>
+                        <li><i class="fas fa-check"></i> تغليف فاخر</li>
+                        <li><i class="fas fa-check"></i> تتبع الطلب</li>
+                        <li><i class="fas fa-check"></i> خدمة عملاء مميزة</li>
+                    </ul>
+                </div>
+
+                <!-- Jerusalem Delivery -->
+                <div class="delivery-card popular">
+                    <div class="popular-badge">الأكثر طلباً</div>
+                    <div class="delivery-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>التوصيل للقدس</h3>
+                    <p class="delivery-time">2-4 أيام عمل</p>
+                    <p class="delivery-price">30 شيقل</p>
+                    <ul class="delivery-features">
+                        <li><i class="fas fa-check"></i> توصيل مخصص للقدس</li>
+                        <li><i class="fas fa-check"></i> تغليف آمن</li>
+                        <li><i class="fas fa-check"></i> متابعة دقيقة للطلب</li>
+                        <li><i class="fas fa-check"></i> خدمة استثنائية</li>
+                    </ul>
+                </div>
+
+                <!-- University Pickup -->
+                <div class="delivery-card">
+                    <div class="delivery-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>استلام من الجامعة</h3>
+                    <p class="delivery-time">حسب الاتفاق</p>
+                    <p class="delivery-price">مجاني</p>
+                    <ul class="delivery-features">
+                        <li><i class="fas fa-check"></i> بدون رسوم توصيل</li>
+                        <li><i class="fas fa-check"></i> مواعيد مرنة</li>
+                        <li><i class="fas fa-check"></i> استلام مباشر</li>
+                        <li><i class="fas fa-check"></i> توفير في التكلفة</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Info -->
+    <section class="delivery-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>تتبع الطلب</h3>
+                    <p>يمكنكِ تتبع طلبكِ في أي وقت من خلال رقم الطلب</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>تغليف آمن</h3>
+                    <p>جميع المنتجات تصل بتغليف فاخر وآمن</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <h3>سهولة الإرجاع</h3>
+                    <p>إمكانية إرجاع المنتجات خلال 7 أيام</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact for Orders -->
+    <section class="order-contact">
+        <div class="container">
+            <div class="contact-card">
+                <h2>جاهزة للطلب؟ 💕</h2>
+                <p>تواصلي معنا الآن واختاري منتجاتكِ المفضلة</p>
+                <div class="contact-buttons">
+                    <a href="https://www.instagram.com/layansbeautyshop/" class="contact-btn instagram">
+                        <i class="fab fa-instagram"></i>
+                        انستغرام
+                    </a>
+                    <a href="https://www.tiktok.com/@layansbeautyshop" class="contact-btn tiktok">
+                        <i class="fab fa-tiktok"></i>
+                        تيك توك
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <h3>متجر ليان للجمال</h3>
+                        <p>جمالكِ يبدأ من هنا</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="products.html">المنتجات</a></li>
+                        <li><a href="delivery.html">التوصيل</a></li>
+                        <li><a href="contact.html">تواصلي معنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>تابعينا</h4>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/layansbeautyshop/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@layansbeautyshop"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 متجر ليان للجمال. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h3>حقيبة التسوق</h3>
+                <button class="close-cart" onclick="toggleCart()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart">حقيبة التسوق فارغة</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <strong>المجموع: <span id="cartTotal">0</span> ريال</strong>
+                </div>
+                <button class="checkout-btn" onclick="showContactMessage()">
+                    إتمام الطلب
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
