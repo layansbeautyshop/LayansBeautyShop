@@ -3,169 +3,97 @@ const products = [
     // Face Products
     {
         id: 1,
-        name: "Makeup revolution super dewy blush",
-        price: 180,
-        description: "بلشر سائل يعطي لمعة للوجخ من ريفوليوشن",
-        icon: "images/RevolutionBlush.jpg", // Replace with your image
+        name: "تينت بينيفت Benefit",    
+        price: 110,
+        description:"تينت بينيفت الشهير",
+        icon: "images/BenefitTint.avif",
         category: "بلاشر",
-        shades: ["فاتح جداً", "فاتح", "متوسط", "داكن", "داكن جداً"]
+        shades: ["Gogo", "Bentint"]
     },
     {
         id: 2,
-        name: "بودرة مضغوطة MAC",
+        name: "ايكون بلشر Revoltuion",
         price: 120,
-        description: "بودرة مضغوطة لتثبيت المكياج",
-        icon: "images/powder1.jpg",
-        category: "وجه",
-        shades: ["شفاف", "فاتح", "متوسط", "داكن"]
+        description: "باليت 3 الوان من ريفوليوشن, بلشر بودرة وبلشر كريمي وهايلايتر",
+        icon: "images/RevolutionIconBlush.webp",
+        category: "بلاشر",
+        shades: ["Hot pink flag", "Aura points rose"]
     },
     {
         id: 3,
-        name: "أحمر خدود NARS",
-        price: 95,
-        description: "أحمر خدود يمنح إشراقة طبيعية",
-        icon: "images/blush1.jpg",
-        category: "بلاشر",
-        shades: ["وردي فاتح", "خوخي", "وردي داكن", "مرجاني"]
+        name: "جلوس NYX",
+        price: 60,
+        description: "جلوس للشفاه ثبات يدوم لساعات",
+        icon: "images/NYXGloss.webp",
+        category: "شفاه",
+        shades: ["Blush rush", "Mocha me wet", "Hydra-Honey"]
     },
     {
         id: 4,
-        name: "بلاشر كريمي Glossier",
-        price: 85,
+        name: "بلاشر charotte Tilbury",
+        price: 210,
         description: "بلاشر كريمي سهل التطبيق",
-        icon: "images/creamblush1.jpg",
+        icon: "images/CTStickBlush.webp",
         category: "بلاشر",
-        shades: ["وردي طبيعي", "خوخي دافئ", "توتي"]
+        shades: ["Rosy Glow", "Pinky Glow"]
     },
+    
     {
         id: 5,
-        name: "برونزر Too Faced",
-        price: 140,
-        description: "برونزر لإضافة الدفء للوجه",
-        icon: "images/bronzer1.jpg",
-        category: "برونزر",
-        shades: ["فاتح", "متوسط", "داكن"]
-    },
-    {
-        id: 6,
-        name: "هايلايتر Fenty Beauty",
-        price: 160,
-        description: "هايلايتر مضيء للإشراقة المثالية",
-        icon: "images/highlighter1.jpg",
-        category: "هايلايتر",
-        shades: ["ذهبي فاتح", "ذهبي داكن", "وردي", "شمبانيا"]
-    },
-    {
-        id: 7,
-        name: "ماسكارا Benefit",
-        price: 130,
-        description: "ماسكارا لرموش كثيفة وطويلة",
-        icon: "images/mascara1.jpg",
-        category: "عيون",
-        shades: ["أسود", "بني داكن"]
-    },
-    {
-        id: 8,
-        name: "ظلال عيون Urban Decay",
-        price: 220,
-        description: "باليت ظلال عيون 12 لون",
-        icon: "images/eyeshadow1.jpg",
-        category: "عيون",
-        shades: ["نود", "دخاني", "ملون"]
-    },
-    {
-        id: 9,
-        name: "أحمر شفاه MAC",
-        price: 100,
-        description: "أحمر شفاه كريمي طويل الثبات",
-        icon: "images/lipstick1.jpg",
-        category: "شفاه",
-        shades: ["أحمر كلاسيكي", "وردي فاتح", "بيري", "نود"]
-    },
-    {
-        id: 10,
-        name: "قلم تحديد الشفاه",
-        price: 65,
-        description: "قلم تحديد الشفاه مقاوم للتلطخ",
-        icon: "images/lipliner1.jpg",
-        category: "محدد شفاه",
-        shades: ["نود", "وردي", "أحمر", "بني"]
-    },
-    {
-        id: 11,
-        name: "ملمع الشفاه Fenty",
-        price: 80,
-        description: "ملمع شفاه مرطب ومضيء",
-        icon: "images/lipgloss1.jpg",
-        category: "شفاه",
-        shades: ["شفاف", "وردي فاتح", "خوخي", "ذهبي"]
-    },
-    {
-        id: 12,
-        name: "فرشاة كريم الأساس",
-        price: 75,
-        description: "فرشاة مسطحة لتطبيق كريم الأساس",
-        icon: "images/brush1.jpg",
-        category: "فراشي",
-        shades: ["واحد"]
-    },
-    {
-        id: 13,
         name: "مجموعة فراشي Real Techniques",
         price: 180,
-        description: "مجموعة 5 فراشي للمكياج",
-        icon: "images/brushset1.jpg",
+        description: "مجموعة 4 فراشي للمكياج",
+        icon: "images/RealTechBrush.jpg",
         category: "فراشي",
         shades: ["مجموعة كاملة"]
     },
+
     {
-        id: 14,
-        name: "سبراي تثبيت Urban Decay",
-        price: 140,
-        description: "سبراي تثبيت المكياج 12 ساعة",
-        icon: "images/settingspray1.jpg",
+        id: 6,
+        name: "بودرة هدى بيوتي Huda Beauty",
+        price: 180,
+        description: "بودرة من هدى بيوتي",
+        icon: "images/HudaPowderCherry.avif",
+        category: "وجه",
+        shades: ["Cherry Blossom"]
+    },
+    {
+        id: 7,
+        name: "كونسيلر Tarte Ultra Creamy",
+        price: 120,
+        description: "كونسيلر كريمي من تارت",
+        icon: "images/TarteUltraCreamy.jpeg",
+        category: "وجه",
+        shades: ["16N", "20B"]
+    },
+    {
+        id: 8,
+        name: "سبراي تثبيت Charlotte Tilbury",
+        price: 210,
+        description: "سبراي تثبيت المكياج من شارلوت تيلبري",
+        icon: "images/CTSetting.jpg",
         category: "سبراي تثبيت",
         shades: ["واحد"]
-    },
-    {
-        id: 15,
-        name: "سيروم فيتامين سي",
-        price: 200,
-        description: "سيروم فيتامين سي لإشراق البشرة",
-        icon: "images/serum1.jpg",
-        category: "العناية بالبشرة",
-        shades: ["واحد"]
-    },
-    {
-        id: 16,
-        name: "مرطب الوجه Cetaphil",
-        price: 120,
-        description: "مرطب يومي للبشرة الحساسة",
-        icon: "images/moisturizer1.jpg",
-        category: "العناية بالبشرة",
-        shades: ["واحد"]
-    },
-    {
-        id: 17,
-        name: "كريم الجسم Bath & Body Works",
-        price: 90,
-        description: "كريم الجسم المرطب برائحة الفانيليا",
-        icon: "images/bodycream1.jpg",
-        category: "كريمات الجسم",
-        shades: ["فانيليا", "ياسمين", "ورد", "جوز الهند"]
-    },
-    {
-        id: 18,
-        name: "لوشن الجسم Vaseline",
-        price: 65,
-        description: "لوشن مرطب للجسم بالجلسرين",
-        icon: "images/bodylotion1.jpg",
-        category: "كريمات الجسم",
-        shades: ["عادي", "برائحة الورد"]
     }
 ];
 
-// Get all products function
+// ============================================
+// LOCALSTORAGE (Synced across pages)
+// ============================================
+function getCart() {
+    return JSON.parse(localStorage.getItem('cart') || '[]');
+}
+
+function saveCart(cartData) {
+    localStorage.setItem('cart', JSON.stringify(cartData));
+}
+
+let selectedDelivery = null;
+let deliveryPrice = 0;
+let currentView = 'products'; 
+let currentProductId = null;
+let selectedShade = null;
+
 function getAllProducts() {
     return products;
 }
@@ -194,12 +122,77 @@ function createProductCard(product) {
     `;
 }
 
-// Function to navigate to product detail page
-function goToProductDetail(productId) {
-    window.location.href = `products-details.html?id=${productId}`;
+function goBack() {
+    backToProducts();
 }
 
-// Load featured products on home page
+// Modified to work within single page (no page navigation)
+function goToProductDetail(productId) {
+    currentProductId = productId;
+    currentView = 'product-detail';
+    showProductDetail(productId);
+}
+
+function showProductDetail(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    
+    const mainContent = document.querySelector('main') || document.body;
+    const detailHTML = `
+        <div class="product-detail-container">
+            <button onclick="backToProducts()" class="back-button">
+                <i class="fas fa-arrow-right"></i> العودة للمنتجات
+            </button>
+            <div class="product-detail-content">
+                <div class="product-detail-image">
+                    <img src="${product.icon}" alt="${product.name}">
+                </div>
+                <div class="product-detail-info">
+                    <h1>${product.name}</h1>
+                    <p class="product-detail-description">${product.description}</p>
+                    <div class="product-detail-category">الفئة: ${product.category}</div>
+                    <div class="product-detail-price">${product.price} شيقل</div>
+                    <div class="product-detail-shades">
+                        <h3>الألوان المتاحة:</h3>
+                        <div class="shades-grid">
+                            ${product.shades.map(shade => `
+                               <button class="shade-option" onclick="selectShade(${product.id}, '${shade}', this)">
+                                    ${shade}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <button class="add-to-cart-detail" onclick="addToCart(${product.id})">
+                        <i class="fas fa-shopping-bag"></i> أضيفي للسلة
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    mainContent.innerHTML = detailHTML;
+}
+
+function selectShade(productId, shade, element) {
+    selectedShade = shade;
+    
+    // Remove 'selected' class from all shade buttons
+    document.querySelectorAll('.shade-option').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    
+    // Add 'selected' class to clicked button
+    if (element) {
+        element.classList.add('selected');
+    }
+}
+
+function backToProducts() {
+    currentView = 'products';
+    currentProductId = null;
+    location.reload(); // Reload to show original content
+}
+
 function loadFeaturedProducts() {
     const featuredContainer = document.getElementById('featuredProducts');
     if (!featuredContainer) return;
@@ -208,7 +201,6 @@ function loadFeaturedProducts() {
     featuredContainer.innerHTML = featuredProducts.map(product => createProductCard(product)).join('');
 }
 
-// Load all products on products page
 function loadAllProducts() {
     const productsContainer = document.getElementById('allProducts');
     if (!productsContainer) return;
@@ -216,7 +208,6 @@ function loadAllProducts() {
     productsContainer.innerHTML = products.map(product => createProductCard(product)).join('');
 }
 
-// Filter products by category
 function filterProducts(category) {
     const productsContainer = document.getElementById('allProducts');
     if (!productsContainer) return;
@@ -224,7 +215,6 @@ function filterProducts(category) {
     const filteredProducts = category === 'الكل' ? products : products.filter(p => p.category === category);
     productsContainer.innerHTML = filteredProducts.map(product => createProductCard(product)).join('');
     
-    // Update active filter button
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
     });
@@ -232,32 +222,53 @@ function filterProducts(category) {
     if (activeBtn) activeBtn.classList.add('active');
 }
 
-// Cart functionality with enhanced features for shades and delivery
-let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-let selectedDelivery = localStorage.getItem('selectedDelivery') || null;
-let deliveryPrice = parseInt(localStorage.getItem('deliveryPrice') || '0');
-
-// Mobile menu toggle
-// Replace the toggleMenu function in your script.js with this:
-
 function toggleMenu() {
-    const navLinks = document.getElementById('navLinks'); // or document.querySelector('.nav-links')
+    const navLinks = document.getElementById('navLinks');
     const hamburger = document.querySelector('.hamburger');
     
-    navLinks.classList.toggle('active');
-    hamburger.classList.toggle('active');
+    if (navLinks) navLinks.classList.toggle('active');
+    if (hamburger) hamburger.classList.toggle('active');
 }
 
-// Cart toggle
 function toggleCart() {
     const cartSidebar = document.getElementById('cartSidebar');
-    cartSidebar.classList.toggle('open');
+    if (cartSidebar) {
+        cartSidebar.classList.toggle('open');
+    }
 }
 
-// Enhanced add to cart function
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
-    if (product) {
+    if (!product) return;
+    
+    let cart = getCart(); // GET FROM LOCALSTORAGE
+    
+    // If we're on product detail page
+    if (currentView === 'product-detail') {
+        let shadeToAdd = selectedShade;
+        
+        // If no shade selected but product has only one shade, use it automatically
+        if (!shadeToAdd && product.shades.length === 1) {
+            shadeToAdd = product.shades[0];
+        }
+        
+        // If product has multiple shades and none selected, show alert
+        if (!shadeToAdd && product.shades.length > 1 && product.shades[0] !== "واحد") {
+            alert('الرجاء اختيار لون أولاً');
+            return;
+        }
+        
+        const existingItem = cart.find(item => item.id === productId && item.selectedShade === shadeToAdd);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ ...product, quantity: 1, selectedShade: shadeToAdd });
+        }
+        
+        selectedShade = null; // Reset after adding
+    } else {
+        // Regular add to cart (from product cards)
         const existingItem = cart.find(item => item.id === productId && !item.selectedShade);
         
         if (existingItem) {
@@ -265,37 +276,38 @@ function addToCart(productId) {
         } else {
             cart.push({ ...product, quantity: 1 });
         }
-        
-        updateCart();
-        saveCart();
-        showAddToCartSuccess();
     }
+    
+    saveCart(cart); // SAVE TO LOCALSTORAGE
+    updateCart();
+    showAddToCartSuccess();
 }
 
-// Enhanced remove from cart function
 function removeFromCart(productId, selectedShade = '') {
+    let cart = getCart(); // GET FROM LOCALSTORAGE
+    
     if (selectedShade) {
         cart = cart.filter(item => !(item.id === productId && item.selectedShade === selectedShade));
     } else {
         cart = cart.filter(item => item.id !== productId);
     }
+    
+    saveCart(cart); // SAVE TO LOCALSTORAGE
     updateCart();
-    saveCart();
 }
 
-// Enhanced update cart display with delivery info
 function updateCart() {
+    let cart = getCart(); // GET FROM LOCALSTORAGE
+    
     const cartCount = document.getElementById('cartCount');
     const cartItems = document.getElementById('cartItems');
     const cartTotal = document.getElementById('cartTotal');
     
     if (!cartCount || !cartItems || !cartTotal) return;
     
-    // Update cart count
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCount.textContent = totalItems;
     
-    // Update cart items
     if (cart.length === 0) {
         cartItems.innerHTML = `
             <div class="empty-cart">
@@ -320,31 +332,24 @@ function updateCart() {
         `).join('');
     }
     
-    // Update total
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     cartTotal.textContent = total;
     
-    // Update delivery info if available
     const deliveryInfo = document.getElementById('deliveryInfo');
     const finalTotal = document.getElementById('finalTotal');
     
     if (deliveryInfo && selectedDelivery) {
         deliveryInfo.style.display = 'block';
-        document.getElementById('deliveryPrice').textContent = deliveryPrice;
+        const deliveryPriceElem = document.getElementById('deliveryPrice');
+        if (deliveryPriceElem) {
+            deliveryPriceElem.textContent = deliveryPrice;
+        }
         if (finalTotal) {
             finalTotal.textContent = total + deliveryPrice;
         }
     }
 }
 
-// Save cart and delivery info to localStorage
-function saveCart() {
-    localStorage.setItem('cart', JSON.stringify(cart));
-    localStorage.setItem('selectedDelivery', selectedDelivery);
-    localStorage.setItem('deliveryPrice', deliveryPrice.toString());
-}
-
-// Show add to cart success message
 function showAddToCartSuccess() {
     const message = document.createElement('div');
     message.style.cssText = `
@@ -377,14 +382,14 @@ function showAddToCartSuccess() {
     }, 3000);
 }
 
-// Enhanced contact message with order details including delivery
 function showContactMessage() {
+    let cart = getCart(); // GET FROM LOCALSTORAGE
+    
     if (cart.length === 0) {
         alert('سلة التسوق فارغة!');
         return;
     }
     
-    // Create order summary
     let orderSummary = 'طلبي:\n';
     let total = 0;
     
@@ -398,7 +403,6 @@ function showContactMessage() {
         orderSummary += ` × ${item.quantity} = ${itemTotal} شيقل\n`;
     });
     
-    // Add delivery if selected
     if (selectedDelivery && deliveryPrice > 0) {
         const deliveryText = selectedDelivery === 'westbank' ? 'التوصيل للضفة الغربية' : 
                            selectedDelivery === 'jerusalem' ? 'التوصيل للقدس' : 'استلام من الجامعة';
@@ -424,6 +428,8 @@ function showContactMessage() {
         justify-content: center;
         animation: fadeIn 0.3s ease;
     `;
+    
+    const orderSummaryEscaped = orderSummary.replace(/'/g, "\\'").replace(/\n/g, '\\n');
     
     message.innerHTML = `
         <div style="
@@ -452,7 +458,7 @@ function showContactMessage() {
                 " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
                     <i class="fab fa-instagram"></i> تواصلي معنا
                 </a>
-                <button onclick="copyOrderSummary('${orderSummary.replace(/'/g, "\\'")}'); closeContactMessage();" style="
+                <button onclick="copyOrderSummary('${orderSummaryEscaped}'); closeContactMessage();" style="
                     background: #28a745;
                     color: white;
                     padding: 12px 25px;
@@ -487,34 +493,48 @@ function showContactMessage() {
     });
 }
 
-// Copy order summary to clipboard
 function copyOrderSummary(orderSummary) {
-    navigator.clipboard.writeText(orderSummary.replace(/\\n/g, '\n')).then(() => {
-        alert('تم نسخ تفاصيل الطلب! الآن يمكنك لصقها في رسالة الانستغرام');
-    }).catch(() => {
-        // Fallback for browsers that don't support clipboard API
-        const textArea = document.createElement('textarea');
-        textArea.value = orderSummary.replace(/\\n/g, '\n');
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        alert('تم نسخ تفاصيل الطلب! الآن يمكنك لصقها في رسالة الانستغرام');
-    });
-}
-
-// Close contact message
-function closeContactMessage() {
-    const message = document.querySelector('[style*="rgba(0, 0, 0, 0.8)"]');
-    if (message) {
-        message.style.animation = 'fadeOut 0.3s ease';
-        setTimeout(() => {
-            document.body.removeChild(message);
-        }, 300);
+    const cleanedSummary = orderSummary.replace(/\\n/g, '\n').replace(/\\'/g, "'");
+    
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(cleanedSummary).then(() => {
+            alert('تم نسخ تفاصيل الطلب! الآن يمكنك لصقها في رسالة الانستغرام');
+        }).catch(() => {
+            fallbackCopy(cleanedSummary);
+        });
+    } else {
+        fallbackCopy(cleanedSummary);
     }
 }
 
-// Contact form submission
+function fallbackCopy(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+        document.execCommand('copy');
+        alert('تم نسخ تفاصيل الطلب! الآن يمكنك لصقها في رسالة الانستغرام');
+    } catch (err) {
+        alert('فشل النسخ، يرجى نسخ التفاصيل يدوياً');
+    }
+    document.body.removeChild(textArea);
+}
+
+function closeContactMessage() {
+    const messages = document.querySelectorAll('[style*="rgba(0, 0, 0, 0.8)"]');
+    messages.forEach(message => {
+        message.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => {
+            if (message.parentNode) {
+                document.body.removeChild(message);
+            }
+        }, 300);
+    });
+}
+
 function submitContactForm(event) {
     event.preventDefault();
     
@@ -552,7 +572,7 @@ function submitContactForm(event) {
     form.reset();
 }
 
-// Add CSS animations and clickable card styles
+// Add styles
 const style = document.createElement('style');
 style.textContent = `
     @keyframes fadeIn {
@@ -577,7 +597,6 @@ style.textContent = `
         transform: translateY(-8px) rotate(-45deg);
     }
     
-    /* Make product cards clickable */
     .product-card {
         cursor: pointer;
         transition: all 0.3s ease;
@@ -588,13 +607,11 @@ style.textContent = `
         box-shadow: 0 25px 50px rgba(255, 20, 147, 0.3);
     }
     
-    /* Prevent button from triggering card click */
     .product-card .add-to-cart {
         position: relative;
         z-index: 10;
     }
     
-    /* Add a subtle indicator that cards are clickable */
     .product-card::after {
         content: "انقري للتفاصيل";
         position: absolute;
@@ -613,6 +630,83 @@ style.textContent = `
     .product-card:hover::after {
         opacity: 1;
     }
+    
+    .product-detail-container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .back-button {
+        background: linear-gradient(135deg, #ff1493, #ff69b4);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+    
+    .product-detail-content {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+    
+    .product-detail-image {
+        flex: 1;
+        min-width: 300px;
+    }
+    
+    .product-detail-image img {
+        width: 100%;
+        border-radius: 20px;
+    }
+    
+    .product-detail-info {
+        flex: 1;
+        min-width: 300px;
+    }
+    
+    .product-detail-shades {
+        margin: 20px 0;
+    }
+    
+    .shades-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+    }
+    
+    .shade-option {
+        background: white;
+        border: 2px solid #ff69b4;
+        padding: 10px;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .shade-option:hover,
+    .shade-option.selected {
+        background: #ff69b4;
+        color: white;
+    }
+    
+    .add-to-cart-detail {
+        background: linear-gradient(135deg, #ff1493, #ff69b4);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 20px;
+    }
 `;
 document.head.appendChild(style);
 
@@ -622,19 +716,17 @@ document.addEventListener('DOMContentLoaded', function() {
     loadFeaturedProducts();
     loadAllProducts();
     
-    // Add click outside to close cart
     document.addEventListener('click', function(event) {
         const cartSidebar = document.getElementById('cartSidebar');
         const cartIcon = document.querySelector('.cart-icon');
         
         if (cartSidebar && cartSidebar.classList.contains('open')) {
-            if (!cartSidebar.contains(event.target) && !cartIcon.contains(event.target)) {
+            if (!cartSidebar.contains(event.target) && cartIcon && !cartIcon.contains(event.target)) {
                 cartSidebar.classList.remove('open');
             }
         }
     });
     
-    // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();

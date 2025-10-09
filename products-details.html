@@ -148,46 +148,87 @@
         }
 
         function addToCartWithShade(productId) {
-            if (!selectedShade) {
-                alert('يرجى اختيار اللون أولاً');
-                document.querySelector('.shade-note').style.display = 'block';
-                document.querySelector('.shade-note').style.color = '#ff1493';
-                document.querySelector('.shade-note').style.fontWeight = 'bold';
-                return;
-            }
-            
-            const quantity = parseInt(document.getElementById('quantity').textContent);
-            const product = products.find(p => p.id === productId);
-            
-            if (product) {
-                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-                
-                const existingItem = cart.find(item => item.id === productId && item.selectedShade === selectedShade);
-                
-                if (existingItem) {
-                    existingItem.quantity += quantity;
-                } else {
-                    cart.push({
-                        ...product,
-                        selectedShade: selectedShade,
-                        quantity: quantity
-                    });
-                }
-                
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCart();
-                showAddToCartSuccess();
-            }
+    if (!selectedShade) {
+        alert('يرجى اختيار اللون أولاً');
+        document.querySelector('.shade-note').style.display = 'block';
+        document.querySelector('.shade-note').style.color = '#ff1493';
+        document.querySelector('.shade-note').style.fontWeight = 'bold';
+        return;
+    }
+    
+    const quantity = parseInt(document.getElementById('quantity').textContent);
+    const product = products.find(p => p.id === productId);
+    
+    if (product) {
+        // Get existing cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        
+        const existingItem = cart.find(item => item.id === productId && item.selectedShade === selectedShade);
+        
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({
+                ...product,
+                selectedShade: selectedShade,
+                quantity: quantity
+            });
         }
+        
+        // Save to localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Update cart display
+        loadCartFromStorage(); // Add this function
+        showAddToCartSuccess();
+    }
+}
 
+// Add this new function to load cart from localStorage
+function loadCartFromStorage() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const cartCount = document.getElementById('cartCount');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    
+    if (!cartCount || !cartItems || !cartTotal) return;
+    
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.textContent = totalItems;
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = `
+            <div class="empty-cart">
+                <i class="fas fa-shopping-bag"></i>
+                <h3>سلة التسوق فارغة</h3>
+                <p>أضيفي منتجات لبدء التسوق</p>
+            </div>
+        `;
+    } else {
+        cartItems.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <div class="cart-item-image" style="background-image: url('${item.icon}')"></div>
+                <div class="cart-item-info">
+                    <h4>${item.name}</h4>
+                    ${item.selectedShade ? `<p style="color: #ff69b4; font-size: 0.9rem;">اللون: ${item.selectedShade}</p>` : ''}
+                    <p>${item.price} شيقل × ${item.quantity}</p>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    cartTotal.textContent = total;
+}
         function goBack() {
             window.history.back();
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            loadProductDetail();
-            updateCart();
-        });
+      document.addEventListener('DOMContentLoaded', function() {
+    loadProductDetail();
+    loadCartFromStorage(); // Changed from updateCart()
+});
+ 
     </script>
 
     <style>

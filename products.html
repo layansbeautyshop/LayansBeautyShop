@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تفاصيل المنتج - متجر ليان للجمال</title>
+    <title>تفاصيل المنتج - متجر ليان</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
+    
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -36,26 +36,22 @@
             </div>
         </div>
     </nav>
-
-    <!-- Product Detail Section -->
-    <section class="product-detail">
+<section class="product-detail">
         <div class="container">
-            <button class="back-btn" onclick="goBack()">
+            <button class="back-btn" onclick=" backToProducts()">
                 <i class="fas fa-arrow-right"></i> العودة للمنتجات
             </button>
             
             <div class="product-detail-content" id="productDetailContent">
-                <!-- Content will be loaded by JavaScript -->
+
             </div>
         </div>
     </section>
 
-   <!-- Products Section -->
-<section class="products-section" style="margin-top: 120px; padding: 40px 0;">
+ <section class="products-section" style="margin-top: 120px; padding: 40px 0;">
     <div class="container">
         <h1 style="text-align: center; color: #ff1493; margin-bottom: 40px;">منتجاتنا</h1>
         
-        <!-- Filter Buttons -->
         <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 40px;">
             <button class="filter-btn active" onclick="filterProducts('الكل')">الكل</button>
             <button class="filter-btn" onclick="filterProducts('بلاشر')">بلاشر</button>
@@ -64,22 +60,21 @@
             <button class="filter-btn" onclick="filterProducts('شفاه')">شفاه</button>
         </div>
         
-        <!-- Products Grid -->
+      
         <div class="products-grid" id="allProducts">
-            <!-- Products loaded by JavaScript -->
+    
         </div>
     </div>
 </section>
     
 
-    <!-- Cart Sidebar -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h3>سلة التسوق</h3>
             <button class="close-cart" onclick="toggleCart()">×</button>
         </div>
         <div class="cart-items" id="cartItems">
-            <!-- Cart items will be added here -->
+            
         </div>
         <div class="cart-footer">
             <div class="cart-total">
@@ -158,14 +153,10 @@
 
         function selectShade(shade, index) {
             selectedShade = shade;
-            
-            // Remove active class from all shade buttons
             document.querySelectorAll('.shade-btn').forEach(btn => btn.classList.remove('active'));
             
-            // Add active class to selected shade
             document.getElementById(`shade-${index}`).classList.add('active');
             
-            // Hide the note
             document.querySelector('.shade-note').style.display = 'none';
         }
 
@@ -191,7 +182,6 @@
             if (product) {
                 let cart = JSON.parse(localStorage.getItem('cart') || '[]');
                 
-                // Check if same product with same shade exists
                 const existingItem = cart.find(item => item.id === productId && item.selectedShade === selectedShade);
                 
                 if (existingItem) {
@@ -214,19 +204,15 @@
             selectedDelivery = type;
             deliveryPrice = price;
             
-            // Remove active class from all delivery options
             document.querySelectorAll('.delivery-option').forEach(option => option.classList.remove('active'));
             document.querySelectorAll('.delivery-check').forEach(check => check.style.display = 'none');
             
-            // Add active class to selected delivery
             document.querySelector(`[onclick="selectDelivery('${type}', ${price})"]`).classList.add('active');
             document.getElementById(`${type}-check`).style.display = 'flex';
             
-            // Show delivery info in cart
             document.getElementById('deliveryInfo').style.display = 'block';
             document.getElementById('deliveryPrice').textContent = price;
             
-            // Update final total
             updateFinalTotal();
         }
 
@@ -236,11 +222,10 @@
             document.getElementById('finalTotal').textContent = finalTotal;
         }
 
-        function goBack() {
+        function backToProducts()() {
             window.history.back();
         }
 
-        // Load product on page load
         document.addEventListener('DOMContentLoaded', function() {
             loadProductDetail();
             updateCart();
@@ -415,8 +400,7 @@
             box-shadow: 0 10px 25px rgba(255, 20, 147, 0.3);
         }
 
-        /* Delivery Section */
-        .delivery-section {
+    .delivery-section {
             padding: 50px 0;
             background: linear-gradient(135deg, #ffeef8, #fff0f5);
         }

@@ -1080,6 +1080,11 @@ body {
     width: 100%;
     right: 0;
 }
+.shade-option.selected {
+    background: #ff1493 !important;
+    color: white !important;
+    transform: scale(1.05);
+}
 
 /* Mobile Navigation Fix */
 @media (max-width: 768px) {
