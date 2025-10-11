@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إتمام الطلب - متجر ليان</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #ffeef8, #fff0f5);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(255, 20, 147, 0.15);
+        }
+
+        h1 {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #ff69b4;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        h2 {
+            color: #ff1493;
+            margin: 30px 0 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #ff69b4;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #666;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ffc0cb;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #ff69b4;
+            box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.1);
+        }
+
+        .optional {
+            color: #ff69b4;
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+
+        .cart-section {
+            background: linear-gradient(135deg, #fff0f5, #ffeef8);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 2px solid #ffc0cb;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 2px dashed #ffc0cb;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .cart-item-price {
+            color: #ff1493;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff1493;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 3px solid #ff69b4;
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            font-family: 'Tajawal', sans-serif;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            background: linear-gradient(135deg, #ccc, #ddd);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .confirmation-section {
+            display: none;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #fff0f5, #ffeef8);
+            padding: 25px;
+            border-radius: 20px;
+            border-right: 6px solid #ff69b4;
+            margin-bottom: 20px;
+        }
+
+        .info-box h3 {
+            margin-bottom: 15px;
+            color: #ff1493;
+            font-size: 1.5rem;
+        }
+
+        .info-box p {
+            margin: 12px 0;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .info-box strong {
+            color: #ff1493;
+            font-weight: 700;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .button-group button {
+            flex: 1;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #9e9e9e, #757575);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #757575, #616161);
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .success-message h2 {
+            color: #ff1493;
+            border: none;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .success-message p {
+            font-size: 1.3rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .checkmark {
+            font-size: 100px;
+            color: #ff69b4;
+            margin-bottom: 30px;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .header-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .review-note {
+            background: #fff0f5;
+            padding: 15px;
+            border-radius: 15px;
+            color: #ff1493;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            border: 2px solid #ffc0cb;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-icon">🛍️💄</div>
+        <h1>إتمام الطلب</h1>
+        <p class="subtitle">متجر ليان للجمال - Layan's Beauty Shop</p>
+
+        <!-- المرحلة الأولى: نموذج الطلب -->
+        <div id="orderForm" class="order-form-section">
+            <form id="checkoutForm">
+                <h2>🌸 المعلومات الشخصية</h2>
+                
+                <div class="form-group">
+                    <label for="firstName">الاسم الأول</label>
+                    <input type="text" id="firstName" name="firstName" required placeholder="أدخلي اسمك الأول">
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">الاسم الأخير</label>
+                    <input type="text" id="lastName" name="lastName" required placeholder="أدخلي اسمك الأخير">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">رقم الهاتف</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="مثال: 0599123456">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone2">رقم هاتف إضافي <span class="optional">(اختياري)</span></label>
+                    <input type="tel" id="phone2" name="phone2" placeholder="للتواصل في حال عدم الرد">
+                </div>
+
+                <h2>📍 معلومات التوصيل</h2>
+
+                <div class="form-group">
+                    <label for="city">المدينة</label>
+                    <input type="text" id="city" name="city" required placeholder="أدخلي اسم المدينة">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">العنوان بالتفصيل</label>
+                    <textarea id="address" name="address" rows="4" required placeholder="الشارع، الحي، أي معلومات إضافية تساعد في التوصيل"></textarea>
+                </div>
+
+                <h2>🛒 ملخص الطلب</h2>
+                <div class="cart-section" id="cartDisplay">
+                    <!-- سيتم عرض المنتجات هنا -->
+                </div>
+
+                <button type="submit">مراجعة الطلب </button>
+            </form>
+        </div>
+
+        <!-- المرحلة الثانية: التأكيد -->
+        <div id="confirmationSection" class="confirmation-section">
+            <h2>✨ مراجعة الطلب</h2>
+            <div class="review-note">يرجى التحقق من جميع المعلومات قبل إتمام الطلب</div>
+
+            <div class="info-box">
+                <h3>👤 المعلومات الشخصية</h3>
+                <p><strong>الاسم:</strong> <span id="confirmName"></span></p>
+                <p><strong>رقم الهاتف:</strong> <span id="confirmPhone"></span></p>
+                <p id="confirmPhone2Div"><strong>رقم هاتف إضافي:</strong> <span id="confirmPhone2"></span></p>
+            </div>
+
+            <div class="info-box">
+                <h3>📦 عنوان التوصيل</h3>
+                <p><strong>المدينة:</strong> <span id="confirmCity"></span></p>
+                <p><strong>العنوان:</strong> <span id="confirmAddress"></span></p>
+            </div>
+
+            <div class="info-box">
+                <h3>🛍️ تفاصيل الطلب</h3>
+                <div id="confirmCart"></div>
+                <div class="total">
+                    <span>الإجمالي:</span>
+                    <span id="confirmTotal"></span>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-secondary" onclick="goBackToEdit()">✏️ تعديل المعلومات</button>
+                <button onclick="submitOrder()">✅ تأكيد وإرسال الطلب</button>
+            </div>
+        </div>
+
+        <!-- المرحلة الثالثة: رسالة النجاح -->
+        <div id="successMessage" class="success-message">
+            <div class="checkmark">✓</div>
+            <h2>تم إرسال طلبك بنجاح!</h2>
+            <p>شكراً لك على طلبك من متجر ليان </p>
+            <p>سنتواصل معك قريباً لتأكيد التوصيل</p>
+            <p style="margin-top: 30px; color: #ff69b4; font-weight: 600;">تابعينا على الإنستقرام: @layansbeautyshop</p>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // الإعدادات - يرجى تحديث هذه القيم
+        // ============================================
+        
+        // استبدلي هذه القيم بمعلومات EmailJS الخاصة بك
+        const EMAILJS_PUBLIC_KEY = "2nzPj2ekNkGugeeOM";
+        const EMAILJS_SERVICE_ID = "service_v4v0tj6";
+        const EMAILJS_TEMPLATE_ID = "template_zky8yqe";
+
+        // تهيئة EmailJS
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+if (cart.length === 0) {
+    alert('السلة فارغة! أضيفي منتجات أولاً ');
+    window.location.href = 'products.html';
+}
+        // حساب الإجمالي
+        function calculateTotal() {
+            return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+        }
+
+        // عرض السلة
+        function displayCart() {
+            const cartDisplay = document.getElementById('cartDisplay');
+            let cartHTML = '';
+            
+            cart.forEach(item => {
+                cartHTML += `
+                    <div class="cart-item">
+                        <span class="cart-item-name">${item.name} × ${item.quantity}</span>
+                        <span class="cart-item-price">${(item.price * item.quantity).toFixed(2)} ₪</span>
+                    </div>
+                `;
+            });
+
+            cartHTML += `
+                <div class="total">
+                    <span>الإجمالي:</span>
+                    <span>${calculateTotal()} ₪</span>
+                </div>
+            `;
+
+            cartDisplay.innerHTML = cartHTML;
+        }
+
+        // عرض السلة عند تحميل الصفحة
+        displayCart();
+
+        // ============================================
+        // معالجة النموذج
+        // ============================================
+
+        let orderData = {};
+
+        // معالجة إرسال النموذج
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // جمع بيانات النموذج
+            orderData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                phone: document.getElementById('phone').value,
+                phone2: document.getElementById('phone2').value,
+                city: document.getElementById('city').value,
+                address: document.getElementById('address').value,
+                cart: cart,
+                total: calculateTotal()
+            };
+
+            // عرض قسم التأكيد
+            showConfirmation();
+        });
+
+        function showConfirmation() {
+            // تعبئة تفاصيل التأكيد
+            document.getElementById('confirmName').textContent = 
+                `${orderData.firstName} ${orderData.lastName}`;
+            document.getElementById('confirmPhone').textContent = orderData.phone;
+            
+            // معالجة رقم الهاتف الإضافي الاختياري
+            if (orderData.phone2) {
+                document.getElementById('confirmPhone2').textContent = orderData.phone2;
+                document.getElementById('confirmPhone2Div').style.display = 'block';
+            } else {
+                document.getElementById('confirmPhone2Div').style.display = 'none';
+            }
+
+            document.getElementById('confirmCity').textContent = orderData.city;
+            document.getElementById('confirmAddress').textContent = orderData.address;
+
+            // عرض السلة في التأكيد
+            let cartHTML = '';
+            orderData.cart.forEach(item => {
+                cartHTML += `<p style="padding: 8px 0; border-bottom: 1px solid #ffc0cb;">${item.name} × ${item.quantity} - ${(item.price * item.quantity).toFixed(2)} ₪</p>`;
+            });
+            document.getElementById('confirmCart').innerHTML = cartHTML;
+            document.getElementById('confirmTotal').textContent = `${orderData.total} ₪`;
+
+            // إخفاء النموذج، عرض التأكيد
+            document.getElementById('orderForm').style.display = 'none';
+            document.getElementById('confirmationSection').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goBackToEdit() {
+            // عرض النموذج، إخفاء التأكيد
+            document.getElementById('orderForm').style.display = 'block';
+            document.getElementById('confirmationSection').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function submitOrder() {
+            // تحضير بيانات القالب للإيميل
+            const templateParams = {
+                customer_name: `${orderData.firstName} ${orderData.lastName}`,
+                first_name: orderData.firstName,
+                last_name: orderData.lastName,
+                phone: orderData.phone,
+                phone2: orderData.phone2 || 'غير متوفر',
+                city: orderData.city,
+                address: orderData.address,
+                order_items: orderData.cart.map(item => 
+                    `${item.name} × ${item.quantity} - ${(item.price * item.quantity).toFixed(2)} ₪`
+                ).join('\n'),
+                total: `${orderData.total} ₪`
+            };
+
+            // تعطيل الزر وعرض التحميل
+            const submitBtn = event.target;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'جاري الإرسال...';
+
+            // إرسال الإيميل
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+                .then(function(response) {
+                    console.log('تم الإرسال بنجاح!', response.status, response.text);
+                    
+                    // عرض رسالة النجاح
+                    document.getElementById('confirmationSection').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, function(error) {
+                    console.log('فشل الإرسال...', error);
+                    alert('فشل إرسال الطلب. يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة على الإنستقرام.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '✅ تأكيد وإرسال الطلب';
+                });
+        }
+    </script>
+</body>
+</html>

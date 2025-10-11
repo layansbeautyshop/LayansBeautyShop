@@ -126,11 +126,18 @@ function goBack() {
     backToProducts();
 }
 
-// Modified to work within single page (no page navigation)
-function goToProductDetail(productId) {
-    currentProductId = productId;
-    currentView = 'product-detail';
-    showProductDetail(productId);
+function goToCheckout() {
+    // Get cart from localStorage (it's already saved there)
+    let cart = getCart();
+    
+    // Check if cart is empty
+    if (cart.length === 0) {
+        alert('السلة فارغة! أضيفي منتجات أولاً 💕');
+        return;
+    }
+    
+    // Go to checkout page
+    window.location.href = 'checkout.html';
 }
 
 function showProductDetail(productId) {
@@ -726,7 +733,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
