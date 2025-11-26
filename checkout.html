@@ -69,7 +69,7 @@
             font-size: 1.1rem;
         }
 
-        input, textarea {
+        input, textarea, select {
             width: 100%;
             padding: 15px;
             border: 2px solid #ffc0cb;
@@ -80,10 +80,14 @@
             background: #fff;
         }
 
-        input:focus, textarea:focus {
+        input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: #ff69b4;
             box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.1);
+        }
+
+        select {
+            cursor: pointer;
         }
 
         .optional {
@@ -122,6 +126,15 @@
             color: #ff1493;
             font-weight: 700;
             font-size: 1.2rem;
+        }
+
+        .delivery-fee {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 2px dashed #ffc0cb;
+            color: #666;
+            font-size: 1.1rem;
         }
 
         .total {
@@ -290,7 +303,6 @@
         <h1>إتمام الطلب</h1>
         <p class="subtitle">متجر ليان للجمال - Layan's Beauty Shop</p>
 
-        <!-- المرحلة الأولى: نموذج الطلب -->
         <div id="orderForm" class="order-form-section">
             <form id="checkoutForm">
                 <h2>🌸 المعلومات الشخصية</h2>
@@ -318,6 +330,17 @@
                 <h2>📍 معلومات التوصيل</h2>
 
                 <div class="form-group">
+                    <label for="deliveryLocation">منطقة التوصيل</label>
+                    <select id="deliveryLocation" name="deliveryLocation" required onchange="updateTotal()">
+                        <option value="">اختاري منطقة التوصيل</option>
+                        <option value="westbank" data-fee="20">الضفة الغربية - 20 ₪</option>
+                        <option value="jerusalem" data-fee="30">القدس - 30 ₪</option>
+                        <option value="aqu" data-fee="0">جامعة القدس - توصيل مجاني</option>
+                        <option value="inside" data-fee="70">الداخل المحتل - 70 ₪</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="city">المدينة</label>
                     <input type="text" id="city" name="city" required placeholder="أدخلي اسم المدينة">
                 </div>
@@ -329,14 +352,12 @@
 
                 <h2>🛒 ملخص الطلب</h2>
                 <div class="cart-section" id="cartDisplay">
-                    <!-- سيتم عرض المنتجات هنا -->
                 </div>
 
                 <button type="submit">مراجعة الطلب </button>
             </form>
         </div>
 
-        <!-- المرحلة الثانية: التأكيد -->
         <div id="confirmationSection" class="confirmation-section">
             <h2>✨ مراجعة الطلب</h2>
             <div class="review-note">يرجى التحقق من جميع المعلومات قبل إتمام الطلب</div>
@@ -350,6 +371,7 @@
 
             <div class="info-box">
                 <h3>📦 عنوان التوصيل</h3>
+                <p><strong>منطقة التوصيل:</strong> <span id="confirmDeliveryLocation"></span></p>
                 <p><strong>المدينة:</strong> <span id="confirmCity"></span></p>
                 <p><strong>العنوان:</strong> <span id="confirmAddress"></span></p>
             </div>
@@ -357,6 +379,7 @@
             <div class="info-box">
                 <h3>🛍️ تفاصيل الطلب</h3>
                 <div id="confirmCart"></div>
+                <p style="padding: 8px 0; border-bottom: 1px solid #ffc0cb;"><strong>رسوم التوصيل:</strong> <span id="confirmDeliveryFee"></span></p>
                 <div class="total">
                     <span>الإجمالي:</span>
                     <span id="confirmTotal"></span>
@@ -369,7 +392,6 @@
             </div>
         </div>
 
-        <!-- المرحلة الثالثة: رسالة النجاح -->
         <div id="successMessage" class="success-message">
             <div class="checkmark">✓</div>
             <h2>تم إرسال طلبك بنجاح!</h2>
@@ -380,30 +402,46 @@
     </div>
 
     <script>
-        // ============================================
-        // الإعدادات - يرجى تحديث هذه القيم
-        // ============================================
-        
-        // استبدلي هذه القيم بمعلومات EmailJS الخاصة بك
+    
         const EMAILJS_PUBLIC_KEY = "2nzPj2ekNkGugeeOM";
         const EMAILJS_SERVICE_ID = "service_v4v0tj6";
         const EMAILJS_TEMPLATE_ID = "template_zky8yqe";
 
-        // تهيئة EmailJS
         emailjs.init(EMAILJS_PUBLIC_KEY);
 
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-if (cart.length === 0) {
-    alert('السلة فارغة! أضيفي منتجات أولاً ');
-    window.location.href = 'products.html';
-}
-        // حساب الإجمالي
-        function calculateTotal() {
-            return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+        if (cart.length === 0) {
+            alert('السلة فارغة! أضيفي منتجات أولاً ');
+            window.location.href = 'products.html';
         }
 
-        // عرض السلة
+        function getDeliveryFee() {
+            const select = document.getElementById('deliveryLocation');
+            const selectedOption = select.options[select.selectedIndex];
+            return selectedOption ? parseFloat(selectedOption.getAttribute('data-fee')) || 0 : 0;
+        }
+
+        function getDeliveryLocationName() {
+            const select = document.getElementById('deliveryLocation');
+            const selectedOption = select.options[select.selectedIndex];
+            return selectedOption ? selectedOption.text : '';
+        }
+
+        function calculateSubtotal() {
+            return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        }
+
+        function calculateTotal() {
+            const subtotal = calculateSubtotal();
+            const deliveryFee = getDeliveryFee();
+            return (subtotal + deliveryFee).toFixed(2);
+        }
+
+        function updateTotal() {
+            displayCart();
+        }
+
         function displayCart() {
             const cartDisplay = document.getElementById('cartDisplay');
             let cartHTML = '';
@@ -417,6 +455,18 @@ if (cart.length === 0) {
                 `;
             });
 
+            const deliveryFee = getDeliveryFee();
+            const deliveryLocation = document.getElementById('deliveryLocation').value;
+            
+            if (deliveryLocation) {
+                cartHTML += `
+                    <div class="delivery-fee">
+                        <span>رسوم التوصيل:</span>
+                        <span>${deliveryFee.toFixed(2)} ₪</span>
+                    </div>
+                `;
+            }
+
             cartHTML += `
                 <div class="total">
                     <span>الإجمالي:</span>
@@ -427,42 +477,36 @@ if (cart.length === 0) {
             cartDisplay.innerHTML = cartHTML;
         }
 
-        // عرض السلة عند تحميل الصفحة
         displayCart();
-
-        // ============================================
-        // معالجة النموذج
-        // ============================================
 
         let orderData = {};
 
-        // معالجة إرسال النموذج
         document.getElementById('checkoutForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // جمع بيانات النموذج
             orderData = {
                 firstName: document.getElementById('firstName').value,
                 lastName: document.getElementById('lastName').value,
                 phone: document.getElementById('phone').value,
                 phone2: document.getElementById('phone2').value,
+                deliveryLocation: document.getElementById('deliveryLocation').value,
+                deliveryLocationName: getDeliveryLocationName(),
+                deliveryFee: getDeliveryFee(),
                 city: document.getElementById('city').value,
                 address: document.getElementById('address').value,
                 cart: cart,
+                subtotal: calculateSubtotal().toFixed(2),
                 total: calculateTotal()
             };
 
-            // عرض قسم التأكيد
             showConfirmation();
         });
 
         function showConfirmation() {
-            // تعبئة تفاصيل التأكيد
             document.getElementById('confirmName').textContent = 
                 `${orderData.firstName} ${orderData.lastName}`;
             document.getElementById('confirmPhone').textContent = orderData.phone;
             
-            // معالجة رقم الهاتف الإضافي الاختياري
             if (orderData.phone2) {
                 document.getElementById('confirmPhone2').textContent = orderData.phone2;
                 document.getElementById('confirmPhone2Div').style.display = 'block';
@@ -470,60 +514,60 @@ if (cart.length === 0) {
                 document.getElementById('confirmPhone2Div').style.display = 'none';
             }
 
+            document.getElementById('confirmDeliveryLocation').textContent = orderData.deliveryLocationName;
             document.getElementById('confirmCity').textContent = orderData.city;
             document.getElementById('confirmAddress').textContent = orderData.address;
 
-            // عرض السلة في التأكيد
             let cartHTML = '';
             orderData.cart.forEach(item => {
                 cartHTML += `<p style="padding: 8px 0; border-bottom: 1px solid #ffc0cb;">${item.name} × ${item.quantity} - ${(item.price * item.quantity).toFixed(2)} ₪</p>`;
             });
             document.getElementById('confirmCart').innerHTML = cartHTML;
+            document.getElementById('confirmDeliveryFee').textContent = `${orderData.deliveryFee.toFixed(2)} ₪`;
             document.getElementById('confirmTotal').textContent = `${orderData.total} ₪`;
 
-            // إخفاء النموذج، عرض التأكيد
             document.getElementById('orderForm').style.display = 'none';
             document.getElementById('confirmationSection').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function goBackToEdit() {
-            // عرض النموذج، إخفاء التأكيد
             document.getElementById('orderForm').style.display = 'block';
             document.getElementById('confirmationSection').style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function submitOrder() {
-            // تحضير بيانات القالب للإيميل
             const templateParams = {
                 customer_name: `${orderData.firstName} ${orderData.lastName}`,
                 first_name: orderData.firstName,
                 last_name: orderData.lastName,
                 phone: orderData.phone,
                 phone2: orderData.phone2 || 'غير متوفر',
+                delivery_location: orderData.deliveryLocationName,
                 city: orderData.city,
                 address: orderData.address,
                 order_items: orderData.cart.map(item => 
                     `${item.name} × ${item.quantity} - ${(item.price * item.quantity).toFixed(2)} ₪`
                 ).join('\n'),
+                subtotal: `${orderData.subtotal} ₪`,
+                delivery_fee: `${orderData.deliveryFee.toFixed(2)} ₪`,
                 total: `${orderData.total} ₪`
             };
 
-            // تعطيل الزر وعرض التحميل
             const submitBtn = event.target;
             submitBtn.disabled = true;
             submitBtn.textContent = 'جاري الإرسال...';
 
-            // إرسال الإيميل
             emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
                 .then(function(response) {
                     console.log('تم الإرسال بنجاح!', response.status, response.text);
                     
-                    // عرض رسالة النجاح
                     document.getElementById('confirmationSection').style.display = 'none';
                     document.getElementById('successMessage').style.display = 'block';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                    
+                    localStorage.removeItem('cart');
                 }, function(error) {
                     console.log('فشل الإرسال...', error);
                     alert('فشل إرسال الطلب. يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة على الإنستقرام.');

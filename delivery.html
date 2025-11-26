@@ -7,36 +7,31 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="delivery-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-content">
-                <div class="logo">
-                    <h2>
-                        <span class="logo-icon">💄</span>
-                        <span class="logo-text">متجر ليان</span>
-                        <span class="logo-subtitle">للجمال</span>
-                    </h2>
+            <div class="nav-logo">
+                <h2>متجر ليان</h2>
+                <span>Layan's Beauty Shop</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="products.html">المنتجات</a></li>
+                <li><a href="delivery.html" class="active">التوصيل</a></li>
+                <li><a href="about.html">من نحن</a></li>
+                <li><a href="contact.html">تواصلي معنا</a></li>
+            </ul>
+            <div class="nav-icons">
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
                 </div>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="index.html">الرئيسية</a></li>
-                    <li><a href="products.html">المنتجات</a></li>
-                    <li><a href="delivery.html" class="active">التوصيل</a></li>
-                    <li><a href="about.html">من نحن</a></li>
-                    <li><a href="contact.html">تواصلي معنا</a></li>
-                </ul>
-                <div class="nav-icons">
-                    <div class="cart-icon" onclick="toggleCart()">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </div>
-                    <div class="hamburger" onclick="toggleMenu()">
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                    </div>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
                 </div>
             </div>
         </div>
@@ -97,53 +92,23 @@
                         <li><i class="fas fa-check"></i> توفير في التكلفة</li>
                     </ul>
             </div>
-        </div>
+
+            <div class="delivery-card">
+                <div class="delivery-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3>التوصيل لمدن الداخل المحتل</h3>
+                <p class="delivery-time">3-5 أيام عمل</p>
+                <p class="delivery-price">70 شيقل</p>
+                <ul class="delivery-features">
+                    <li><i class="fas fa-check"></i> توصيل لجميع مدن الداخل</li>
+                    <li><i class="fas fa-check"></i> تغليف آمن</li>
+                    <li><i class="fas fa-check"></i> خدمة متميزة</li>
+                </ul>
+            </div>
     </section>
 
     
-    <section class="delivery-info">
-        <div class="container">
-            <div class="info-grid">
-                <div class="info-card">
-                    <div class="info-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                </div>
-                
-                <div class="info-card">
-                    <div class="info-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>تغليف آمن</h3>
-                    <p>جميع المنتجات تصل بتغليف فاخر وآمن</p>
-                </div>
-                
-                <div class="info-card">
-                    <div class="info-icon">
-                        <i class="fas fa-undo"></i>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="order-contact">
-        <div class="container">
-            <div class="contact-card">
-                <h2>جاهزة للطلب؟</h2>
-                <p>تواصلي معنا الآن واختاري منتجاتكِ المفضلة</p>
-                <div class="contact-buttons">
-                    <a href="https://www.instagram.com/layansbeautyshop/" class="contact-btn instagram">
-                        <i class="fab fa-instagram"></i>
-                        انستغرام
-                    </a>
-                    <a href="https://www.tiktok.com/@layansbeautyshop" class="contact-btn tiktok">
-                        <i class="fab fa-tiktok"></i>
-                        تيك توك
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <footer class="footer">
         <div class="container">
@@ -180,28 +145,21 @@
         </div>
     </footer>
 
-    <div class="cart-overlay" id="cartOverlay">
-        <div class="cart-sidebar">
-            <div class="cart-header">
-                <h3>حقيبة التسوق</h3>
-                <button class="close-cart" onclick="toggleCart()">
-                    <i class="fas fa-times"></i>
-                </button>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>سلة التسوق</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">حقيبة التسوق فارغة</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>المجموع: <span id="cartTotal">0</span> ريال</strong>
             </div>
-            <div class="cart-items" id="cartItems">
-                <p class="empty-cart">حقيبة التسوق فارغة</p>
-            </div>
-            <div class="cart-footer">
-                <div class="cart-total">
-                    <strong>المجموع: <span id="cartTotal">0</span> ريال</strong>
-                </div>
-                <button class="checkout-btn" onclick="showContactMessage()">
-                    إتمام الطلب
-                </button>
-            </div>
+            <button class="checkout-btn" onclick="showContactMessage()">إتمام الطلب</button>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

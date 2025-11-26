@@ -1,6 +1,4 @@
-// Sample products data
 const products = [
-    // Face Products
     {
         id: 1,
         name: "تينت بينيفت Benefit",    
@@ -8,7 +6,11 @@ const products = [
         description:"تينت بينيفت الشهير",
         icon: "images/BenefitTint.avif",
         category: "بلاشر",
-        shades: ["Gogo", "Bentint"]
+        inStock: true,
+        shades: [
+            { name: "Gogo", available: true },
+            { name: "Bentint", available: false } 
+        ]
     },
     {
         id: 2,
@@ -17,7 +19,11 @@ const products = [
         description: "باليت 3 الوان من ريفوليوشن, بلشر بودرة وبلشر كريمي وهايلايتر",
         icon: "images/RevolutionIconBlush.webp",
         category: "بلاشر",
-        shades: ["Hot pink flag", "Aura points rose"]
+        inStock: true,
+        shades: [
+            { name: "Hot pink flag", available: true },
+            { name: "Aura points rose", available: true }
+        ]
     },
     {
         id: 3,
@@ -26,7 +32,12 @@ const products = [
         description: "جلوس للشفاه ثبات يدوم لساعات",
         icon: "images/NYXGloss.webp",
         category: "شفاه",
-        shades: ["Blush rush", "Mocha me wet", "Hydra-Honey"]
+        inStock: true, 
+        shades: [
+            { name: "Blush rush", available: true },
+            { name: "Mocha me wet", available: false },
+            { name: "Hydra-Honey", available: false }
+        ]
     },
     {
         id: 4,
@@ -35,9 +46,12 @@ const products = [
         description: "بلاشر كريمي سهل التطبيق",
         icon: "images/CTStickBlush.webp",
         category: "بلاشر",
-        shades: ["Rosy Glow", "Pinky Glow"]
+        inStock: true,
+        shades: [
+            { name: "Rosy Glow", available: true },
+            { name: "Pinky Glow", available: true }
+        ]
     },
-    
     {
         id: 5,
         name: "مجموعة فراشي Real Techniques",
@@ -45,9 +59,11 @@ const products = [
         description: "مجموعة 4 فراشي للمكياج",
         icon: "images/RealTechBrush.jpg",
         category: "فراشي",
-        shades: ["مجموعة كاملة"]
+        inStock: true,
+        shades: [
+            { name: "مجموعة كاملة", available: true } 
+        ]
     },
-
     {
         id: 6,
         name: "بودرة هدى بيوتي Huda Beauty",
@@ -55,7 +71,10 @@ const products = [
         description: "بودرة من هدى بيوتي",
         icon: "images/HudaPowderCherry.avif",
         category: "وجه",
-        shades: ["Cherry Blossom"]
+        inStock: true,
+        shades: [
+            { name: "Cherry Blossom", available: true }
+        ]
     },
     {
         id: 7,
@@ -64,7 +83,11 @@ const products = [
         description: "كونسيلر كريمي من تارت",
         icon: "images/TarteUltraCreamy.jpeg",
         category: "وجه",
-        shades: ["16N", "20B"]
+        inStock: true,
+        shades: [
+            { name: "16N", available: true },
+            { name: "20B", available: false } 
+        ]
     },
     {
         id: 8,
@@ -73,13 +96,13 @@ const products = [
         description: "سبراي تثبيت المكياج من شارلوت تيلبري",
         icon: "images/CTSetting.jpg",
         category: "سبراي تثبيت",
-        shades: ["واحد"]
+        inStock: true,
+        shades: [
+            { name: "واحد", available: true }
+        ]
     }
 ];
 
-// ============================================
-// LOCALSTORAGE (Synced across pages)
-// ============================================
 function getCart() {
     return JSON.parse(localStorage.getItem('cart') || '[]');
 }
@@ -90,18 +113,28 @@ function saveCart(cartData) {
 
 let selectedDelivery = null;
 let deliveryPrice = 0;
-let currentView = 'products'; 
-let currentProductId = null;
 let selectedShade = null;
 
 function getAllProducts() {
     return products;
 }
 
-// Updated createProductCard function - now clickable
 function createProductCard(product) {
+    const isAvailable = product.inStock;
+    
+    // Check for more than one available shade to force product detail page selection
+    const requiresShadeSelection = product.shades && product.shades.filter(s => s.available).length > 1;
+
+    const hasAvailableShades = product.shades.some(s => s.available);
+    const finalAvailability = isAvailable && (product.shades.length === 0 || hasAvailableShades);
+
+    const buttonAction = requiresShadeSelection ? `event.stopPropagation(); goToProductDetail(${product.id});` : `event.stopPropagation(); addToCart(${product.id});`;
+    const buttonText = requiresShadeSelection ? 'اختاري اللون أولاً' : (finalAvailability ? 'أضيفي للسلة' : 'نفذت الكمية');
+    const buttonClass = requiresShadeSelection ? 'add-to-cart select-shade' : 'add-to-cart';
+
     return `
-        <div class="product-card" onclick="goToProductDetail(${product.id})">
+        <div class="product-card ${finalAvailability ? '' : 'out-of-stock-card'}" onclick="goToProductDetail(${product.id})">
+            ${finalAvailability ? '' : '<div class="out-of-stock-overlay">نفذت الكمية بالكامل</div>'}
             <div class="product-image" style="background-image: url('${product.icon}')"></div>
             <div class="product-info">
                 <h3>${product.name}</h3>
@@ -110,94 +143,33 @@ function createProductCard(product) {
                 <div class="product-shades">
                     <span class="shades-label">الألوان المتاحة:</span>
                     <div class="shades-list">
-                        ${product.shades.map(shade => `<span class="shade-item">${shade}</span>`).join('')}
+                        ${product.shades.map(shade => 
+                            `<span class="shade-item ${shade.available ? '' : 'unavailable-shade'}">${shade.name}</span>`
+                        ).join('')}
                     </div>
                 </div>
                 <div class="product-price">${product.price} شيقل</div>
-                <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
-                    <i class="fas fa-shopping-bag"></i> أضيفي للسلة
+                <button class="${buttonClass}" ${finalAvailability ? '' : 'disabled'} onclick="${buttonAction}">
+                    <i class="fas fa-shopping-bag"></i> ${buttonText}
                 </button>
             </div>
         </div>
     `;
 }
 
-function goBack() {
-    backToProducts();
-}
-
 function goToCheckout() {
-    // Get cart from localStorage (it's already saved there)
     let cart = getCart();
     
-    // Check if cart is empty
     if (cart.length === 0) {
         alert('السلة فارغة! أضيفي منتجات أولاً 💕');
         return;
     }
     
-    // Go to checkout page
     window.location.href = 'checkout.html';
 }
 
-function showProductDetail(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
-    const mainContent = document.querySelector('main') || document.body;
-    const detailHTML = `
-        <div class="product-detail-container">
-            <button onclick="backToProducts()" class="back-button">
-                <i class="fas fa-arrow-right"></i> العودة للمنتجات
-            </button>
-            <div class="product-detail-content">
-                <div class="product-detail-image">
-                    <img src="${product.icon}" alt="${product.name}">
-                </div>
-                <div class="product-detail-info">
-                    <h1>${product.name}</h1>
-                    <p class="product-detail-description">${product.description}</p>
-                    <div class="product-detail-category">الفئة: ${product.category}</div>
-                    <div class="product-detail-price">${product.price} شيقل</div>
-                    <div class="product-detail-shades">
-                        <h3>الألوان المتاحة:</h3>
-                        <div class="shades-grid">
-                            ${product.shades.map(shade => `
-                               <button class="shade-option" onclick="selectShade(${product.id}, '${shade}', this)">
-                                    ${shade}
-                                </button>
-                            `).join('')}
-                        </div>
-                    </div>
-                    <button class="add-to-cart-detail" onclick="addToCart(${product.id})">
-                        <i class="fas fa-shopping-bag"></i> أضيفي للسلة
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    mainContent.innerHTML = detailHTML;
-}
-
-function selectShade(productId, shade, element) {
-    selectedShade = shade;
-    
-    // Remove 'selected' class from all shade buttons
-    document.querySelectorAll('.shade-option').forEach(btn => {
-        btn.classList.remove('selected');
-    });
-    
-    // Add 'selected' class to clicked button
-    if (element) {
-        element.classList.add('selected');
-    }
-}
-
-function backToProducts() {
-    currentView = 'products';
-    currentProductId = null;
-    location.reload(); // Reload to show original content
+function goToProductDetail(productId) {
+    window.location.href = `products-details.html?id=${productId}`;
 }
 
 function loadFeaturedProducts() {
@@ -246,52 +218,25 @@ function toggleCart() {
 
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
-    if (!product) return;
+    if (!product || !product.inStock) return; 
     
-    let cart = getCart(); // GET FROM LOCALSTORAGE
+    let cart = getCart();
     
-    // If we're on product detail page
-    if (currentView === 'product-detail') {
-        let shadeToAdd = selectedShade;
-        
-        // If no shade selected but product has only one shade, use it automatically
-        if (!shadeToAdd && product.shades.length === 1) {
-            shadeToAdd = product.shades[0];
-        }
-        
-        // If product has multiple shades and none selected, show alert
-        if (!shadeToAdd && product.shades.length > 1 && product.shades[0] !== "واحد") {
-            alert('الرجاء اختيار لون أولاً');
-            return;
-        }
-        
-        const existingItem = cart.find(item => item.id === productId && item.selectedShade === shadeToAdd);
-        
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({ ...product, quantity: 1, selectedShade: shadeToAdd });
-        }
-        
-        selectedShade = null; // Reset after adding
+    const existingItem = cart.find(item => item.id === productId && !item.selectedShade);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
     } else {
-        // Regular add to cart (from product cards)
-        const existingItem = cart.find(item => item.id === productId && !item.selectedShade);
-        
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({ ...product, quantity: 1 });
-        }
+        cart.push({ ...product, quantity: 1 });
     }
     
-    saveCart(cart); // SAVE TO LOCALSTORAGE
+    saveCart(cart);
     updateCart();
     showAddToCartSuccess();
 }
 
 function removeFromCart(productId, selectedShade = '') {
-    let cart = getCart(); // GET FROM LOCALSTORAGE
+    let cart = getCart();
     
     if (selectedShade) {
         cart = cart.filter(item => !(item.id === productId && item.selectedShade === selectedShade));
@@ -299,12 +244,13 @@ function removeFromCart(productId, selectedShade = '') {
         cart = cart.filter(item => item.id !== productId);
     }
     
-    saveCart(cart); // SAVE TO LOCALSTORAGE
+    saveCart(cart);
     updateCart();
 }
 
+
 function updateCart() {
-    let cart = getCart(); // GET FROM LOCALSTORAGE
+    let cart = getCart();
     
     const cartCount = document.getElementById('cartCount');
     const cartItems = document.getElementById('cartItems');
@@ -326,7 +272,7 @@ function updateCart() {
     } else {
         cartItems.innerHTML = cart.map(item => `
             <div class="cart-item">
-                <div class="cart-item-image" style="background-image: url('${item.icon}')"></div>
+                <div class="cart-item-image" style="background-image: url('${item.icon}'); width: 60px; height: 60px; background-size: cover; background-position: center; flex-shrink: 0;"></div>
                 <div class="cart-item-info">
                     <h4>${item.name}</h4>
                     ${item.selectedShade ? `<p style="color: #ff69b4; font-size: 0.9rem;">اللون: ${item.selectedShade}</p>` : ''}
@@ -390,7 +336,7 @@ function showAddToCartSuccess() {
 }
 
 function showContactMessage() {
-    let cart = getCart(); // GET FROM LOCALSTORAGE
+    let cart = getCart();
     
     if (cart.length === 0) {
         alert('سلة التسوق فارغة!');
@@ -579,7 +525,195 @@ function submitContactForm(event) {
     form.reset();
 }
 
-// Add styles
+function backToProducts() {
+    window.location.href = 'products.html';
+}
+
+function selectShade(shadeName, index, isAvailable) {
+    if (!isAvailable) {
+        alert('هذا اللون/الدرجة غير متوفر حالياً. يرجى اختيار لون آخر.');
+        return;
+    }
+    
+    selectedShade = shadeName;
+    document.querySelectorAll('.shade-btn').forEach(btn => btn.classList.remove('active'));
+    const shadeBtn = document.getElementById(`shade-${index}`);
+    if (shadeBtn) {
+        shadeBtn.classList.add('active');
+    }
+    const shadeNote = document.querySelector('.shade-note');
+    if (shadeNote) {
+        shadeNote.style.display = 'none';
+    }
+}
+
+function changeQuantity(change) {
+    const quantityEl = document.getElementById('quantity');
+    if (!quantityEl) return;
+    let quantity = parseInt(quantityEl.textContent);
+    quantity = Math.max(1, quantity + change);
+    quantityEl.textContent = quantity;
+}
+
+function addToCartWithShade(productId) {
+    const product = products.find(p => p.id === productId);
+
+    if (!product || !product.inStock) {
+        alert('عذراً، هذا المنتج غير متوفر حالياً.');
+        return;
+    }
+    
+    const availableShades = product.shades.filter(s => s.available);
+    const requiresSelection = availableShades.length > 1;
+
+    let finalShade = null;
+
+    if (requiresSelection) {
+        finalShade = selectedShade;
+        if (!finalShade) {
+            alert('يرجى اختيار اللون أولاً');
+            const shadeNote = document.querySelector('.shade-note');
+            if (shadeNote) {
+                shadeNote.style.display = 'block';
+                shadeNote.style.color = '#ff1493';
+                shadeNote.style.fontWeight = 'bold';
+            }
+            return;
+        }
+    } else if (availableShades.length === 1) {
+        finalShade = availableShades[0].name;
+    } else if (availableShades.length === 0 && product.shades.length > 0) {
+        alert('عذراً، جميع ألوان هذا المنتج غير متوفرة حالياً.');
+        return;
+    }
+    
+    
+    const quantity = parseInt(document.getElementById('quantity').textContent);
+
+    if (product) {
+        let cart = getCart();
+
+        const existingItem = cart.find(item => item.id === productId && item.selectedShade === finalShade);
+
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({
+                ...product,
+                selectedShade: finalShade,
+                quantity: quantity
+            });
+        }
+
+        saveCart(cart);
+        updateCart();
+        showAddToCartSuccess();
+    }
+}
+
+function loadProductDetail() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = parseInt(urlParams.get('id'));
+
+    const product = products.find(p => p.id === productId);
+    const detailContainer = document.getElementById('productDetailContent');
+
+    if (!product) {
+        if (detailContainer) {
+            detailContainer.innerHTML = '<div style="text-align: center; padding: 50px;"><h2>لم يتم العثور على المنتج 😞</h2><p>الرجاء التأكد من صحة رابط المنتج. قد يكون الـ ID غير صحيح.</p><p><a href="products.html" style="color: #ff1493; font-weight: bold;">العودة لصفحة المنتجات</a></p></div>';
+        }
+        document.title = "خطأ - منتج غير موجود";
+        return;
+    }
+    
+    if (!product.inStock) {
+         if (detailContainer) {
+             detailContainer.innerHTML = `
+                <div style="text-align: center; padding: 50px;">
+                    <h2 style="color: #ff1493; margin-bottom: 20px;">عذراً، هذا المنتج غير متوفر حالياً 😔</h2>
+                    <p style="font-size: 1.2rem;">${product.name} نفذت كميته بالكامل.</p>
+                    <p><a href="products.html" style="color: #ff1493; font-weight: bold;">العودة لصفحة المنتجات</a></p>
+                </div>
+            `;
+         }
+         document.title = `${product.name} - غير متوفر`;
+         return;
+    }
+    
+    document.title = `${product.name} - تفاصيل المنتج`;
+    
+    const availableShades = product.shades.filter(s => s.available);
+    const requiresSelection = availableShades.length > 1;
+    const singleAvailableShade = availableShades.length === 1 ? availableShades[0] : null;
+
+    if (detailContainer) {
+        selectedShade = null; 
+
+        detailContainer.innerHTML = `
+            <div class="product-detail-grid">
+                <div class="product-image-large">
+                    <img id="product-image" src="${product.icon}" alt="${product.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="image-placeholder" style="display: none;">
+                        <i class="fas fa-image"></i>
+                        <p>صورة المنتج</p>
+                    </div>
+                </div>
+                
+                <div class="product-info-large">
+                    <h1 id="product-name">${product.name}</h1>
+                    <div class="product-category-large" id="product-category">${product.category}</div>
+                    <p class="product-description-large" id="product-description">${product.description}</p>
+                    
+                    <div class="product-price-large" id="product-price">${product.price} شيقل</div>
+                    
+                    ${requiresSelection ? `
+                    <div class="shade-selection" id="shade-selection-container">
+                        <h3>اختاري اللون:</h3>
+                        <div class="shades-grid">
+                            ${product.shades.map((shade, index) => `
+                                <button class="shade-btn ${shade.available ? '' : 'out-of-stock-shade'}" 
+                                        ${shade.available ? `onclick="selectShade('${shade.name}', ${index}, true)"` : 'disabled'} 
+                                        id="shade-${index}">
+                                    ${shade.name}
+                                    ${shade.available ? '' : ' (نفذ)'}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <p class="shade-note">* يرجى اختيار اللون قبل الإضافة للسلة</p>
+                    </div>
+                    ` : singleAvailableShade ? `
+                    <div class="shade-selection">
+                        <h3>اللون المتوفر:</h3>
+                        <p class="available-shade">${singleAvailableShade.name}</p>
+                    </div>
+                    ` : product.shades.length > 0 && availableShades.length === 0 ? `
+                    <div class="shade-selection">
+                        <h3 style="color: #ff1493;">نفذت الكمية من جميع الألوان!</h3>
+                        <p class="available-shade" style="background-color: #ffeef8;">سيتم توفيره قريباً.</p>
+                    </div>
+                    ` : ''}
+
+                    
+                    <div class="quantity-selector">
+                        <h3>الكمية:</h3>
+                        <div class="quantity-controls">
+                            <button onclick="changeQuantity(-1)" ${availableShades.length === 0 && product.shades.length > 0 ? 'disabled' : ''}>-</button>
+                            <span id="quantity">1</span>
+                            <button onclick="changeQuantity(1)" ${availableShades.length === 0 && product.shades.length > 0 ? 'disabled' : ''}>+</button>
+                        </div>
+                    </div>
+                    
+                    <button class="add-to-cart-large" onclick="addToCartWithShade(${product.id})" 
+                            ${availableShades.length === 0 && product.shades.length > 0 ? 'disabled' : ''}>
+                        <i class="fas fa-shopping-bag"></i> ${availableShades.length === 0 && product.shades.length > 0 ? 'نفذت الكمية' : 'أضيفي للسلة'}
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+}
+
+
 const style = document.createElement('style');
 style.textContent = `
     @keyframes fadeIn {
@@ -604,6 +738,35 @@ style.textContent = `
         transform: translateY(-8px) rotate(-45deg);
     }
     
+    .product-card.out-of-stock-card {
+        pointer-events: none;
+        position: relative;
+    }
+    
+    .out-of-stock-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.7); 
+        border: 4px solid #ff1493; 
+        color: #ff1493; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        z-index: 5;
+        border-radius: 15px;
+    }
+    
+    .unavailable-shade {
+        text-decoration: line-through; 
+        opacity: 0.7; 
+        color: #ff69b4; 
+    }
+
     .product-card {
         cursor: pointer;
         transition: all 0.3s ease;
@@ -638,86 +801,17 @@ style.textContent = `
         opacity: 1;
     }
     
-    .product-detail-container {
-        padding: 20px;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    
-    .back-button {
-        background: linear-gradient(135deg, #ff1493, #ff69b4);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 25px;
-        cursor: pointer;
-        margin-bottom: 20px;
-        font-weight: 600;
-    }
-    
-    .product-detail-content {
-        display: flex;
-        gap: 40px;
-        flex-wrap: wrap;
-    }
-    
-    .product-detail-image {
-        flex: 1;
-        min-width: 300px;
-    }
-    
-    .product-detail-image img {
-        width: 100%;
-        border-radius: 20px;
-    }
-    
-    .product-detail-info {
-        flex: 1;
-        min-width: 300px;
-    }
-    
-    .product-detail-shades {
-        margin: 20px 0;
-    }
-    
-    .shades-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 10px;
-        margin-top: 10px;
-    }
-    
-    .shade-option {
-        background: white;
-        border: 2px solid #ff69b4;
-        padding: 10px;
+    .available-shade {
+        background: #f0f0f0;
+        padding: 8px 15px;
         border-radius: 15px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    .shade-option:hover,
-    .shade-option.selected {
-        background: #ff69b4;
-        color: white;
-    }
-    
-    .add-to-cart-detail {
-        background: linear-gradient(135deg, #ff1493, #ff69b4);
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        border-radius: 25px;
-        cursor: pointer;
-        font-size: 1.1rem;
-        font-weight: 600;
-        width: 100%;
-        margin-top: 20px;
+        display: inline-block;
+        font-weight: 500;
+        color: #333;
     }
 `;
 document.head.appendChild(style);
 
-// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     updateCart();
     loadFeaturedProducts();
@@ -733,6 +827,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+    
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();

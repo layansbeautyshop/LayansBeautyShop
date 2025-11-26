@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تفاصيل المنتج - متجر ليان للجمال</title>
+    <title>تفاصيل المنتج - متجر ليان</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
+    
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -22,6 +22,7 @@
                 <li><a href="delivery.html">التوصيل</a></li>
                 <li><a href="about.html">من نحن</a></li>
                 <li><a href="contact.html">تواصلي معنا</a></li>
+                <li><a href="checkout.html">إتمام الطلب</a></li>
             </ul>
             <div class="nav-icons">
                 <div class="cart-icon" onclick="toggleCart()">
@@ -37,200 +38,60 @@
         </div>
     </nav>
 
-    <!-- Product Detail Section -->
     <section class="product-detail">
         <div class="container">
-            <button class="back-btn" onclick="goBack()">
+            <button class="back-btn" onclick="backToProducts()">
                 <i class="fas fa-arrow-right"></i> العودة للمنتجات
             </button>
             
             <div class="product-detail-content" id="productDetailContent">
-                <!-- Content will be loaded by JavaScript -->
+                <div style="text-align: center; padding: 50px;">جارٍ تحميل تفاصيل المنتج...</div>
             </div>
         </div>
     </section>
 
-    <!-- Shopping Cart -->
-    <div class="cart-overlay" id="cartOverlay">
-        <div class="cart-sidebar">
-            <div class="cart-header">
-                <h3>حقيبة التسوق</h3>
-                <button class="close-cart" onclick="toggleCart()">
-                    <i class="fas fa-times"></i>
-                </button>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>سلة التسوق</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>المجموع: <span id="cartTotal">0</span> شيقل</strong>
             </div>
-            <div class="cart-items" id="cartItems">
-                <p class="empty-cart">حقيبة التسوق فارغة</p>
-            </div>
-            <div class="cart-footer">
-                <div class="cart-total">
-                    <strong>المجموع: <span id="cartTotal">0</span> شيقل</strong>
-                </div>
-                <button class="checkout-btn" onclick="showContactMessage()">إتمام الطلب</button>
-            </div>
+            <button class="checkout-btn" onclick="goToCheckout()">إتمام الطلب</button>
         </div>
     </div>
 
+    <footer>
+        <p>&copy; 2024 متجر ليان. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    
     <script src="script.js"></script>
     <script>
-        let selectedShade = null;
-
-        function loadProductDetail() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = parseInt(urlParams.get('id'));
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update cart display
+            updateCart();
             
-            const product = products.find(p => p.id === productId);
+            // Load the product details based on the URL ID
+            loadProductDetail();
             
-            if (!product) {
-                document.getElementById('productDetailContent').innerHTML = '<p>المنتج غير موجود</p>';
-                return;
-            }
-            
-            document.getElementById('productDetailContent').innerHTML = `
-                <div class="product-detail-grid">
-                    <div class="product-image-large">
-                        <img src="${product.icon}" alt="${product.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="image-placeholder" style="display: none;">
-                            <i class="fas fa-image"></i>
-                            <p>صورة المنتج</p>
-                        </div>
-                    </div>
-                    
-                    <div class="product-info-large">
-                        <h1>${product.name}</h1>
-                        <div class="product-category-large">${product.category}</div>
-                        <p class="product-description-large">${product.description}</p>
-                        
-                        <div class="product-price-large">${product.price} شيقل</div>
-                        
-                        <div class="shade-selection">
-                            <h3>اختاري اللون:</h3>
-                            <div class="shades-grid">
-                                ${product.shades.map((shade, index) => `
-                                    <button class="shade-btn" onclick="selectShade('${shade}', ${index})" id="shade-${index}">
-                                        ${shade}
-                                    </button>
-                                `).join('')}
-                            </div>
-                            <p class="shade-note">* يرجى اختيار اللون قبل الإضافة للسلة</p>
-                        </div>
-                        
-                        <div class="quantity-selector">
-                            <h3>الكمية:</h3>
-                            <div class="quantity-controls">
-                                <button onclick="changeQuantity(-1)">-</button>
-                                <span id="quantity">1</span>
-                                <button onclick="changeQuantity(1)">+</button>
-                            </div>
-                        </div>
-                        
-                        <button class="add-to-cart-large" onclick="addToCartWithShade(${product.id})">
-                            <i class="fas fa-shopping-bag"></i> أضيفي للسلة
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-
-        function selectShade(shade, index) {
-            selectedShade = shade;
-            
-            document.querySelectorAll('.shade-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`shade-${index}`).classList.add('active');
-            document.querySelector('.shade-note').style.display = 'none';
-        }
-
-        function changeQuantity(change) {
-            const quantityEl = document.getElementById('quantity');
-            let quantity = parseInt(quantityEl.textContent);
-            quantity = Math.max(1, quantity + change);
-            quantityEl.textContent = quantity;
-        }
-
-        function addToCartWithShade(productId) {
-    if (!selectedShade) {
-        alert('يرجى اختيار اللون أولاً');
-        document.querySelector('.shade-note').style.display = 'block';
-        document.querySelector('.shade-note').style.color = '#ff1493';
-        document.querySelector('.shade-note').style.fontWeight = 'bold';
-        return;
-    }
-    
-    const quantity = parseInt(document.getElementById('quantity').textContent);
-    const product = products.find(p => p.id === productId);
-    
-    if (product) {
-        // Get existing cart from localStorage
-        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-        
-        const existingItem = cart.find(item => item.id === productId && item.selectedShade === selectedShade);
-        
-        if (existingItem) {
-            existingItem.quantity += quantity;
-        } else {
-            cart.push({
-                ...product,
-                selectedShade: selectedShade,
-                quantity: quantity
+            // Code for closing the cart sidebar when clicking outside
+            document.addEventListener('click', function(event) {
+                const cartSidebar = document.getElementById('cartSidebar');
+                const cartIcon = document.querySelector('.cart-icon');
+                
+                if (cartSidebar && cartSidebar.classList.contains('open')) {
+                    if (!cartSidebar.contains(event.target) && cartIcon && !cartIcon.contains(event.target)) {
+                        cartSidebar.classList.remove('open');
+                    }
+                }
             });
-        }
-        
-        // Save to localStorage
-        localStorage.setItem('cart', JSON.stringify(cart));
-        
-        // Update cart display
-        loadCartFromStorage(); // Add this function
-        showAddToCartSuccess();
-    }
-}
-
-// Add this new function to load cart from localStorage
-function loadCartFromStorage() {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const cartCount = document.getElementById('cartCount');
-    const cartItems = document.getElementById('cartItems');
-    const cartTotal = document.getElementById('cartTotal');
-    
-    if (!cartCount || !cartItems || !cartTotal) return;
-    
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = totalItems;
-    
-    if (cart.length === 0) {
-        cartItems.innerHTML = `
-            <div class="empty-cart">
-                <i class="fas fa-shopping-bag"></i>
-                <h3>سلة التسوق فارغة</h3>
-                <p>أضيفي منتجات لبدء التسوق</p>
-            </div>
-        `;
-    } else {
-        cartItems.innerHTML = cart.map(item => `
-            <div class="cart-item">
-                <div class="cart-item-image" style="background-image: url('${item.icon}')"></div>
-                <div class="cart-item-info">
-                    <h4>${item.name}</h4>
-                    ${item.selectedShade ? `<p style="color: #ff69b4; font-size: 0.9rem;">اللون: ${item.selectedShade}</p>` : ''}
-                    <p>${item.price} شيقل × ${item.quantity}</p>
-                </div>
-            </div>
-        `).join('');
-    }
-    
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    cartTotal.textContent = total;
-}
-        function goBack() {
-            window.history.back();
-        }
-
-      document.addEventListener('DOMContentLoaded', function() {
-    loadProductDetail();
-    loadCartFromStorage(); // Changed from updateCart()
-});
- 
+        });
     </script>
-
+    
     <style>
         .product-detail {
             margin-top: 120px;
@@ -349,6 +210,23 @@ function loadCartFromStorage() {
             transform: translateY(-2px);
         }
 
+        /* NEW: Style for unavailable shade buttons - adjusted opacity */
+        .shade-btn.out-of-stock-shade {
+            background: #f8f8f8;
+            border-color: #ddd;
+            color: #aaa;
+            cursor: not-allowed;
+            text-decoration: line-through;
+            opacity: 1; /* Keep full opacity */
+        }
+        
+        .shade-btn.out-of-stock-shade:hover {
+            transform: none;
+            background: #f8f8f8;
+            color: #aaa;
+        }
+        /* END NEW */
+
         .shade-note {
             color: #999;
             font-size: 0.9rem;
@@ -372,6 +250,11 @@ function loadCartFromStorage() {
             cursor: pointer;
             font-size: 1.2rem;
             font-weight: bold;
+        }
+
+        .quantity-controls button:disabled {
+             background: #ccc;
+             cursor: not-allowed;
         }
 
         .quantity-controls span {
@@ -398,6 +281,16 @@ function loadCartFromStorage() {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(255, 20, 147, 0.3);
         }
+        
+        /* Style for disabled add to cart button */
+        .add-to-cart-large:disabled {
+            background: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        /* END NEW */
 
         @media (max-width: 768px) {
             .product-detail-grid {
@@ -420,4 +313,5 @@ function loadCartFromStorage() {
         }
     </style>
 </body>
+
 </html>

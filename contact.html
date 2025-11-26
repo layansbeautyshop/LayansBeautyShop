@@ -39,8 +39,6 @@
             </div>
         </div>
     </nav>
-
-    <!-- Contact Hero -->
     <section class="contact-hero">
         <div class="container">
             <h1>تواصلي معنا</h1>
@@ -48,15 +46,13 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section class="contact-section">
         <div class="container">
             <div class="contact-content">
-                <div class="contact-info">
-                    <h2>طرق التواصل</h2>
-                    <p>يسعدنا تواصلكِ معنا من خلال الطرق التالية:</p>
-                    
-                    <div class="contact-methods">
+                <div class="contact-info" style="text-align: center; max-width: 650px; margin: 0 auto;">
+                    <h2>للتواصل معنا في حال وجود مشكلة، سؤال، أو طلب عام</h2>
+                    <p style="margin-bottom: 40px; font-weight: 500; font-size: 1.2rem; color: #333;">يرجى التواصل معنا مباشرة عبر رسائل الانستغرام وسنقوم بالرد عليكِ في أسرع وقت ممكن.
+                    <div class="contact-methods" style="max-width: 400px; margin: 0 auto;">
                         <div class="contact-method">
                             <div class="method-icon">
                                 <i class="fab fa-instagram"></i>
@@ -64,86 +60,49 @@
                             <div class="method-info">
                                 <h3>انستغرام</h3>
                                 <p>@layansbeautyshop</p>
-                                <a href="#" class="contact-link">تابعينا الآن</a>
+                                <a href="https://www.instagram.com/layansbeautyshop/" class="contact-link">أرسلي رسالة الآن</a>
                             </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fab fa-snapchat"></i>
-                            </div>
-                            <div class="method-info">
-                                <h3>سناب شات</h3>
-                                <p>layansbeauty</p>
-                                <a href="#" class="contact-link">أضيفينا</a>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fab fa-tiktok"></i>
-                            </div>
-                            <div class="method-info">
-                                <h3>تيك توك</h3>
-                                <p>@layansbeautyshop</p>
-                                <a href="#" class="contact-link">شاهدي فيديوهاتنا</a>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                
                         </div>
                     </div>
                 </div>
 
-                <div class="contact-form-container">
-                    <h2>أرسلي لنا رسالة</h2>
-                    <form class="contact-form" onsubmit="submitContactForm(event)">
-                        <div class="form-group">
-                            <label for="name">الاسم الكامل</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">البريد الإلكتروني</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">رقم الهاتف</label>
-                            <input type="tel" id="phone" name="phone">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="subject">الموضوع</label>
-                            <select id="subject" name="subject" required>
-                                <option value="">اختاري الموضوع</option>
-                                <option value="order">استفسار عن طلب</option>
-                                <option value="product">استفسار عن منتج</option>
-                                <option value="complaint">شكوى</option>
-                                <option value="suggestion">اقتراح</option>
-                                <option value="other">أخرى</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">الرسالة</label>
-                            <textarea id="message" name="message" rows="5" required placeholder="اكتبي رسالتكِ هنا..."></textarea>
-                        </div>
-                        
-                        <button type="submit" class="submit-btn">
-                            <i class="fas fa-paper-plane"></i> إرسال الرسالة
-                        </button>
-                    </form>
+                <div class="special-orders-info" style="max-width: 650px; margin: 50px auto 0; padding-top: 30px; border-top: 1px solid #ff69b4;">
+                    <h2 style="font-size: 1.8rem; color: #ff1493; margin-bottom: 15px; font-weight: 700; text-align: center;">الطلبات الخاصة (Special Orders)</h2>
+                    <p style="font-size: 1.1rem; color: #333; line-height: 1.8; margin-bottom: 25px; text-align: right;">
+                        إذا كان لديكِ طلب خاص لمنتج غير متوفر حاليًا في المتجر، مثل:
+                        <ul style="padding-right: 20px; list-style: none;">
+                            <li style="margin-bottom: 5px; position: relative;">
+                                <i class="fas fa-chevron-left" style="color: #ff69b4; position: absolute; right: 0; top: 8px;"></i>
+                                <span style="margin-right: 20px;">درجة لون أو نوع منتج محدد غير متوفر في المخزون حاليًا.</span>
+                            </li>
+                        </ul>
+                        <span style="font-weight: 600; display: block; margin-top: 25px;">لإتمام طلب خاص، يرجى اتباع الخطوات التالية:</span>
+                    </p>
+                    <div style="border: 2px dashed #ff69b4; padding: 25px; border-radius: 10px; background-color: #fff0f5;">
+                        <ol style="padding-right: 20px; list-style-type: none; counter-reset: special-order-counter;">
+                            <li style="margin-bottom: 15px; position: relative; font-weight: 500;">
+                                <span style="position: absolute; right: -20px; font-weight: 700; color: #ff1493; counter-increment: special-order-counter; content: counter(special-order-counter) '.'; font-size: 1.3rem;"></span>
+                                <span style="margin-right: 20px;">تواصلي معنا مباشرة على <a href="https://www.instagram.com/layansbeautyshop/" style="color: #ff1493; text-decoration: underline; font-weight: 600;">رسائل الانستغرام</a>.</span>
+                            </li>
+                            <li style="margin-bottom: 15px; position: relative; font-weight: 500;">
+                                <span style="position: absolute; right: -20px; font-weight: 700; color: #ff1493; counter-increment: special-order-counter; content: counter(special-order-counter) '.'; font-size: 1.3rem;"></span>
+                                <span style="margin-right: 20px;">وضّحي كافة التفاصيل المطلوبة (اسم المنتج، درجة اللون، الكمية، والبلد/المدينة إذا كان الطلب للشحن الخارجي).</span>
+                            </li>
+                            <li style="margin-bottom: 15px; position: relative; font-weight: 500;">
+                                <span style="position: absolute; right: -20px; font-weight: 700; color: #ff1493; counter-increment: special-order-counter; content: counter(special-order-counter) '.'; font-size: 1.3rem;"></span>
+                                <span style="margin-right: 20px;">سنقوم بالبحث عن المنتج وإبلاغكِ بتوفره والسعر النهائي (شاملًا التكاليف الإضافية).</span>
+                            </li>
+                            <li style="position: relative; font-weight: 500;">
+                                <span style="position: absolute; right: -20px; font-weight: 700; color: #ff1493; counter-increment: special-order-counter; content: counter(special-order-counter) '.'; font-size: 1.3rem;"></span>
+                                <span style="margin-right: 20px;"><strong style="color: #b22222;">ملاحظة هامة:</strong> لإتمام الطلب، <strong style="color: #b22222;">قد يُطلب منكِ دفع نسبة مئوية من قيمة المنتج مقدماً</strong>. يتم الدفع عن طريق تحويل فيزا/بنكي، أو نقدًا.</span>
+                            </li>
+                        </ol>
+                    </div>
                 </div>
-            </div>
+                </div>
         </div>
     </section>
 
-    <!-- FAQ Section -->
     <section class="faq-section">
         <div class="container">
             <h2 class="section-title">الأسئلة الشائعة</h2>
@@ -201,15 +160,13 @@
         </div>
     </section>
 
-    <!-- Cart Sidebar -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h3>سلة التسوق</h3>
             <button class="close-cart" onclick="toggleCart()">×</button>
         </div>
         <div class="cart-items" id="cartItems">
-            <!-- Cart items will be added here -->
-        </div>
+            </div>
         <div class="cart-footer">
             <div class="cart-total">
                 <strong>المجموع: <span id="cartTotal">0</span> ريال</strong>
@@ -218,7 +175,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -263,7 +219,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 متجر ليان للجمال. جميع الحقوق محفوظة.</p>
+                <p>&copy; 2025 متجر ليان. جميع الحقوق محفوظة.</p>
             </div>
         </div>
     </footer>
@@ -325,15 +281,14 @@
             background: white;
         }
 
+        /* Updated CSS for single column layout */
         .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
+            display: block; /* Ensures the content spans full width of its container */
+            max-width: 800px; /* Limits the max width of the contact section for better readability */
+            margin: 0 auto; /* Centers the contact content block */
         }
 
-        .contact-info h2,
-        .contact-form-container h2 {
+        .contact-info h2 {
             font-size: 2.2rem;
             color: #ff1493;
             margin-bottom: 20px;
@@ -405,72 +360,7 @@
             color: #ff69b4;
         }
 
-        .contact-form {
-            background: linear-gradient(135deg, #ffeef8, #fff0f5);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-family: 'Tajawal', sans-serif;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #ff69b4;
-            box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #ff1493, #ff69b4);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 25px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.3);
-        }
+        /* Removed contact-form and submit-btn styles */
 
         .faq-section {
             padding: 80px 0;
@@ -545,10 +435,7 @@
                 font-size: 2.5rem;
             }
 
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
+            /* .contact-content grid removed, handled by main style */
 
             .contact-method {
                 flex-direction: column;
@@ -561,15 +448,7 @@
                 margin-bottom: 15px;
             }
 
-            .contact-form {
-                padding: 30px 20px;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                padding: 12px;
-            }
+            /* Removed contact-form related media queries */
 
             .faq-question {
                 padding: 20px;
