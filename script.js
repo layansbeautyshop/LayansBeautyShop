@@ -35,7 +35,7 @@ const products = [
         inStock: true, 
         shades: [
             { name: "Blush rush", available: true },
-            { name: "Mocha me wet", available: false },
+            { name: "Mocha me wet", available: true },
             { name: "Hydra-Honey", available: false }
         ]
     },
@@ -100,8 +100,173 @@ const products = [
         shades: [
             { name: "واحد", available: true }
         ]
-    }
+    },
+     {
+        id: 9,
+        name: "Pixi Eye patches",
+        price: 120,
+    description: " لواصق\ باتشات لتحت العيون غنية بفيتامين سي وعرق السوس والجنسنغ للتفتيح ",
+        icon: "images/PixiPatches.jpg",
+        category: "منتجات العناية",
+        inStock: true,
+        shades: [
+            { name: "Beautifeye", available: true },
+            { name: "Detoxifeye", available: false } 
+        ]
+    },
+    {
+  id: 10,
+        name: "Maracuja juicy Lip & cheek shift",
+        price: 100,
+        description: "منتج مزدوج للشفاه والخدود من تارت، يمنحكِ لونًا طبيعيًا يدوم طويلاً مع ترطيب عميق بفضل زيت الماراكوجا المغذي. يعمل بتقنية الحموضة الطبيعية لبشرتك",
+icon: "images/MaracujaShift.jpg",
+        category: "شفاه",
+        inStock: true,
+        shades: [
+            { name: "Ice pop", available: true },
+            { name: "Blueberry", available: true } 
+        ]
+    },
+{
+        id: 11,
+        name: "Maracuja juicy Lip vinyl",
+        price: 80,
+        description: "جلوس للشفاه, يعطي لمعة ويقوم بتكبير الشفاه وجعلهم ممتلئات ويرطب",
+        icon: "images/MaracujaVinyl.webp",
+        category: "شفاه",
+        inStock: true,
+        shades: [
+            { name: "Sheer ice", available: true },
+            { name: "Rosy beige", available: false } 
+        ]
+    },
+     {
+        id: 12,
+        name: "Sol de Janeio jet set",
+        price: 170,
+        description: "بكج سول دي جانيرو تحتوي على: شامبو للجسم (شاور جل) ومرطب للجسم وعطر",
+        icon: "images/Soldejaneirotravel.webp",
+        category: "بكجات",
+        inStock: true,
+        shades: [
+            { name: "59 ارجواني", available: true },
+            { name: "68 وردي", available: true} ,
+ 	       { name: "40 بطيخي", available: true} 
+        ]
+    },
+    {
+ id: 13,
+        name: "Sol de Janeio cream",
+        price: 100,
+        description: "مرطب سول دي جانيرو للجسم بحجم 75 مل",
+        icon: "images/SoldejaneiroCream.webp",
+        category: "منتجات العناية",
+        inStock: true,
+        shades: [
+            { name: "Delecia drench body butter", available: true },
+            { name: "beija flor elasti-cream", available: true} 
+        ]
+    },
+{
+ id: 14,
+        name: "Elf Camo liquid blush",
+        price: 60,
+        description: "بلشر ايلف السائل, بيجمنت وثبات عالي",
+        icon: "images/elfcamoblush.webp",
+        category: "بلاشر",
+        inStock: true,
+        shades: [
+            { name: "Peach perect", available: true },
+            { name: "Copper etiqutte", available: true},
+ 		{ name: "Pinky promise", available: true }
+
+        ]
+    },
+    {
+     id: 15,
+        name: "Revolution jelly blush",
+        price: 40,
+        description: "بلشر ريفيليوشن بقوام الجيلي",
+        icon: "images/Revolutionjelly.webp",
+        category: "بلاشر",
+        inStock: true,
+        shades: [
+            { name: "Strawberry", available: true },
+            { name: "Peach", available: true},
+        ] },
+ {
+     id: 16,
+        name: "Revolution blush burst",
+        price: 45,
+        description: "بلشر ريفيليوشن سائل",
+        icon: "images/revolutionburst.webp",
+        category: "بلاشر",
+        inStock: true,
+        shades: [
+            { name: "Bubblegum burst pink", available: true },
+            { name: "Strawberry milkshake cool pink", available: true},
+        ] },
+{
+     id: 17,
+        name: "Saie dew blush",
+        price: 130,
+        description: "بلشر سائل من saie",
+        icon: "images/saieblush.webp",
+        category: "بلاشر",
+        inStock: true,
+        shades: [
+            { name: "Spicy", available: true },
+            { name: "Chilly", available: false},
+ 	 { name: "Poppy", available: false}
+        ] },
+{
+     id: 18,
+        name: "Too faced matte bronzer",
+        price: 170,
+        description: "برونزر من تو فيسد بلا لمعة",
+        icon: "images/toofacedsol.webp",
+        category: "برونزر",
+        inStock: true,
+        shades: [
+            { name: "Chocolate soliel", available: true },
+            { name: "Sun bunny", available: true},
+        ] },
+{
+     id: 18,
+        name: "Essence lip and cheek tint",
+        price: 25,
+        description: "تينت من ايسنس بثبات عالي",
+        icon: "images/essencetint.webp",
+        category: "بلاشر",
+        inStock: true,
+        shades: [
+            { name: "01 Kiss from rose", available: true }
+        ] },
+{
+     id: 19,
+        name: "Nyx the face glue gripping primer",
+        price: 50,
+        description: "برايمر لثبات الميكاب طوال اليوم",
+        icon: "images/nyxglue.webp",
+        category: "الكل",
+        inStock: true,
+        shades: [
+            { name: "white", available: true }
+        ] },
+
+{
+     id: 20,
+        name: "Mini Modern renaissance kit",
+        price: 200,
+        description: "بكج مكونة من باليت ايشادو وروج وقلم حواجب من انستازيا",
+        icon: "images/minimodernkit.webp",
+        category: "بكجات",
+        inStock: true,
+        shades: [
+            { name: "soft brown", available: true }
+        ] }
 ];
+
 
 function getCart() {
     return JSON.parse(localStorage.getItem('cart') || '[]');
@@ -122,7 +287,6 @@ function getAllProducts() {
 function createProductCard(product) {
     const isAvailable = product.inStock;
     
-    // Check for more than one available shade to force product detail page selection
     const requiresShadeSelection = product.shades && product.shades.filter(s => s.available).length > 1;
 
     const hasAvailableShades = product.shades.some(s => s.available);
@@ -386,6 +550,7 @@ function showContactMessage() {
     
     message.innerHTML = `
         <div style="
+            position: relative;
             background: white;
             padding: 40px;
             border-radius: 20px;
@@ -422,23 +587,24 @@ function showContactMessage() {
                 ">
                     نسخ تفاصيل الطلب
                 </button>
-                <button onclick="closeContactMessage()" style="
+                <button onclick="window.location.href = 'products.html';" style="
                     background: transparent;
-                    color: #666;
+                    color: #ff1493;
                     padding: 12px 25px;
-                    border: 2px solid #ddd;
+                    border: 2px solid #ff1493;
                     border-radius: 25px;
                     font-weight: 600;
                     cursor: pointer;
                     transition: all 0.3s ease;
-                " onmouseover="this.style.borderColor='#ff1493'; this.style.color='#ff1493'" onmouseout="this.style.borderColor='#ddd'; this.style.color='#666'">
-                    إغلاق
+                " onmouseover="this.style.backgroundColor='#ffeef8'" onmouseout="this.style.backgroundColor='transparent'">
+                    العودة للتسوق
                 </button>
             </div>
         </div>
     `;
     
     document.body.appendChild(message);
+    // This allows clicking outside the modal to close it (like the 'X' function)
     message.addEventListener('click', (e) => {
         if (e.target === message) {
             closeContactMessage();
@@ -479,12 +645,15 @@ function fallbackCopy(text) {
 function closeContactMessage() {
     const messages = document.querySelectorAll('[style*="rgba(0, 0, 0, 0.8)"]');
     messages.forEach(message => {
-        message.style.animation = 'fadeOut 0.3s ease';
-        setTimeout(() => {
-            if (message.parentNode) {
-                document.body.removeChild(message);
-            }
-        }, 300);
+        // Find the correct way to close the modal (by removing the element added in showContactMessage)
+        if (message.contains(document.querySelector('.fab.fa-instagram')) && message.parentNode === document.body) {
+            message.style.animation = 'fadeOut 0.3s ease';
+            setTimeout(() => {
+                if (message.parentNode) {
+                    document.body.removeChild(message);
+                }
+            }, 300);
+        }
     });
 }
 
