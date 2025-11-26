@@ -264,7 +264,20 @@ icon: "images/MaracujaShift.jpg",
         inStock: true,
         shades: [
             { name: "soft brown", available: true }
-        ] }
+        ] },
+
+        {
+     id: 21,
+        name: "Charlotte tilbury the secret to love kit",
+        price: 190,
+        description: "بكج شارلوت تلبري تحتوي على عطر  10 مل وروج",
+        icon: "images/CTsecretkit.jpg",
+        category: "بكجات",
+        inStock: true,
+        shades: [
+            { name: "Pillow talk", available: true }
+        ] },
+
 ];
 
 
